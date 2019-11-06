@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>games/Mario_coin/textur/bg1.jpg</file>
+        <file>games/Mario_coin/textur/coin.png</file>
+        <file>games/Mario_coin/textur/hrac.png</file>
+        <file>games/Mario_coin/textur/bg2.jpg</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>images/bg_janko.jpg</file>
+        <file>images/BT_ANJ_OFF.png</file>
+        <file>images/BT_ANJ_ON.png</file>
+        <file>images/BT_LOG_OFF.png</file>
+        <file>images/BT_LOG_ON.png</file>
+        <file>images/BT_MAT_OFF.png</file>
+        <file>images/BT_MAT_ON.png</file>
+        <file>images/BT_ZAB_OFF.png</file>
+        <file>images/BT_ZAB_ON.png</file>
+    </qresource>
+</RCC>

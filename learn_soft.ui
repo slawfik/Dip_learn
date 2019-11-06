@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Learn_soft</class>
+ <widget class="QMainWindow" name="Learn_soft">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Learn_soft</string>
+  </property>
+  <property name="toolTipDuration">
+   <number>-1</number>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Learn_soft {
+border-image:url(:/img/images/bg_janko.jpg) 0 0 0 0 stretch stretch
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="6" column="1">
+     <widget class="QPushButton" name="btn_4">
+      <property name="minimumSize">
+       <size>
+        <width>330</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#btn_4 {
+background-color: transparent;
+border-image: url(:/img/images/BT_ZAB_OFF.png);
+background: none;
+
+border-radius: 10px;
+background-repeat: none;
+}
+#btn_4:pressed
+{
+   border-image: url(:/img/images/BT_ZAB_ON.png);
+
+ }</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <family>Farm to Market Fancy</family>
+        <pointsize>30</pointsize>
+        <underline>true</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>Výber tematického okruhu:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QPushButton" name="btn_2">
+      <property name="minimumSize">
+       <size>
+        <width>330</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#btn_2 {
+background-color: transparent;
+border-image: url(:/img/images/BT_ANJ_OFF.png);
+background: none;
+
+border-radius: 10px;
+background-repeat: none;
+}
+#btn_2:pressed
+{
+   border-image: url(:/img/images/BT_ANJ_ON.png);
+
+ }</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="5" column="1">
+     <widget class="QPushButton" name="btn_3">
+      <property name="minimumSize">
+       <size>
+        <width>330</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#btn_3 {
+background-color: transparent;
+border-image: url(:/img/images/BT_LOG_OFF.png);
+background: none;
+
+border-radius: 10px;
+background-repeat: none;
+}
+#btn_3:pressed
+{
+   border-image: url(:/img/images/BT_LOG_ON.png);
+
+ }</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <family>Farm to Market Fancy</family>
+        <pointsize>50</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Precvičujeme s jankom</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::MinimumExpanding</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>300</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="btn_1">
+      <property name="minimumSize">
+       <size>
+        <width>330</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#btn_1 {
+background-color: transparent;
+border-image: url(:/img/images/BT_MAT_OFF.png);
+background: none;
+
+border-radius: 10px;
+background-repeat: none;
+}
+#btn_1:pressed
+{
+   border-image: url(:/img/images/BT_MAT_ON.png);
+
+ }</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
