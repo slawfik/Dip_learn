@@ -1,4 +1,4 @@
-QT       += core gui
+    QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +16,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    games/G_Log_tiene/animal.cpp \
+    games/G_Log_tiene/check_box.cpp \
+    games/G_Log_tiene/my_button.cpp \
+    games/G_Log_tiene/tiene.cpp \
     games/Mario_coin/coin.cpp \
     games/Mario_coin/hrac.cpp \
     games/Mario_coin/mario_coin.cpp \
@@ -23,11 +27,16 @@ SOURCES += \
     learn_soft.cpp
 
 HEADERS += \
+    games/G_Log_tiene/animal.h \
+    games/G_Log_tiene/check_box.h \
+    games/G_Log_tiene/my_button.h \
+    games/G_Log_tiene/tiene.h \
     games/Mario_coin/coin.h \
     games/Mario_coin/hrac.h \
     games/Mario_coin/mario_coin.h \
     learn_soft.h \
-    settings.h
+    settings.h \
+    tiene.h
 
 FORMS += \
     learn_soft.ui

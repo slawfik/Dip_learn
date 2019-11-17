@@ -15,5 +15,38 @@
         <file>images/BT_MAT_ON.png</file>
         <file>images/BT_ZAB_OFF.png</file>
         <file>images/BT_ZAB_ON.png</file>
+        <file>images/BT_ZPAT_OFF.png</file>
+        <file>images/BT_ZPAT_ON.png</file>
+        <file>images/G_COIN_OFF.png</file>
+        <file>images/G_COIN_ON.png</file>
+        <file>images/G_TIEN_OFF.png</file>
+        <file>images/G_TIEN_ON.png</file>
+    </qresource>
+    <qresource prefix="/game/tiene">
+        <file>games/G_Log_tiene/textur/check_box.png</file>
+        <file>games/G_Log_tiene/textur/check_box_NO.png</file>
+        <file>games/G_Log_tiene/textur/check_box_YES.png</file>
+        <file>games/G_Log_tiene/textur/jezko.png</file>
+        <file>games/G_Log_tiene/textur/jezko_ON.png</file>
+        <file>games/G_Log_tiene/textur/jezko_T.png</file>
+        <file>games/G_Log_tiene/textur/orol.png</file>
+        <file>games/G_Log_tiene/textur/orol_ON.png</file>
+        <file>games/G_Log_tiene/textur/orol_T.png</file>
+        <file>games/G_Log_tiene/textur/ovecka.png</file>
+        <file>games/G_Log_tiene/textur/ovecka_ON.png</file>
+        <file>games/G_Log_tiene/textur/ovecka_T.png</file>
+        <file>games/G_Log_tiene/textur/tiene_BG.png</file>
+        <file>games/G_Log_tiene/textur/vevericka.png</file>
+        <file>games/G_Log_tiene/textur/vevericka_ON.png</file>
+        <file>games/G_Log_tiene/textur/vevericka_T.png</file>
+        <file>games/G_Log_tiene/textur/vtak.png</file>
+        <file>games/G_Log_tiene/textur/vtak_ON.png</file>
+        <file>games/G_Log_tiene/textur/vtak_T.png</file>
+        <file>games/G_Log_tiene/textur/zajacik.png</file>
+        <file>games/G_Log_tiene/textur/zajacik_ON.png</file>
+        <file>games/G_Log_tiene/textur/zajacik_T.png</file>
+        <file>games/G_Log_tiene/textur/rerun_G_OFF.png</file>
+        <file>games/G_Log_tiene/textur/rerun_G_ON.png</file>
+        <file>games/G_Log_tiene/textur/hviezdicky.gif</file>
     </qresource>
 </RCC>
