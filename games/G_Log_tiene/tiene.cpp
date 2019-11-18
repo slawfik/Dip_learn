@@ -5,11 +5,10 @@
 #include "my_button.h"
 #include <QMovie>
 #include <QGraphicsProxyWidget>
-#include <QLabel>
 
 Tiene::Tiene(QWidget *parent)
 {
-     Q_UNUSED(parent)
+    Q_UNUSED(parent)
     //init sceny
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,WIDTH_SCREAN,HIGHT_SCREAN); // make the scene 800x600 instead of infinity by infinity (default)
@@ -28,9 +27,10 @@ Tiene::Tiene(QWidget *parent)
     kurzor = nullptr;
     setMouseTracking(true);
 
+    addGif();
     //init objektov zvieratiek
     setObject();
-    showGif();
+
 }
 
 void Tiene::gameRestart()
@@ -41,7 +41,6 @@ void Tiene::gameRestart()
     //init kurzora
     kurzor = nullptr;
     btn_return = false;
-
 
     setObject();
 }
@@ -88,6 +87,8 @@ void Tiene::setObject()
     }
     focusIT = zvierata.begin();
     focusIT.operator*()->manual_Focus_ON();
+
+    gif(false);
 }
 
 void Tiene::changeFocus(bool ok_change)
@@ -128,6 +129,7 @@ Tiene::~Tiene()
     //Removes and deletes all items from the scene
     scene->clear();
     zvierata.clear();
+    delete movie;
     delete scene;
 }
 
@@ -143,9 +145,9 @@ void Tiene::keyPressEvent(QKeyEvent *event)
     if(event->key() == Qt::Key_Tab) {
         //qDebug() << "key tab is presed" << zvierata.size();
         changeFocus(false);
-    } else if(event->key() == Qt::Key_Space){
+    }/* else if(event->key() == Qt::Key_Space){
         showGameOver("over");
-    }
+    }*/
 }
 
 void Tiene::drawPanel(int x, int y, int width, int height, QColor color, double opacity){
@@ -167,30 +169,50 @@ void Tiene::showGameOver(QString msg)
 
     // draw panel
     drawPanel(WIDTH_SCREAN/2-200,HIGHT_SCREAN/2-200,400,400,Qt::lightGray,0.75);
-        //drawPanel(10,10,800,800,Qt::lightGray,0.75);
 
-    My_button* playAgain = new My_button(QString("Hrať znova"));
-    playAgain->setPos(410,300);
-    scene->addItem(playAgain);
+    QGraphicsTextItem* titleText = new QGraphicsTextItem(QString("Super na:"));
+    QFont titleFont("Farm to Market Fancy",50);
+    titleText->setFont(titleFont);
+    titleText->setPos(WIDTH_SCREAN/2 - titleText->boundingRect().width()/2,150);
+    scene->addItem(titleText);
 
-    /*QMovie *movie = new QMovie(":/game/tiene/games/G_Log_tiene/textur/hviezdicky.gif");
-    QLabel *aniLabel = new QLabel(this);*/
+    // parent item for Button
+    QGraphicsRectItem *game_OverButtons_parent = new QGraphicsRectItem();
 
-    /*QLabel *gif_anim = new QLabel();
-    QMovie *movie = new QMovie(image);*/
-    /*aniLabel->setMovie(movie);
-    movie->start();
-    QGraphicsProxyWidget *proxy = scene->addWidget(aniLabel);*/
+    My_button* playAgain = new My_button(QString("Hrať znova"),game_OverButtons_parent);
+    playAgain->setPos(410,HIGHT_SCREAN/2+50);
+    connect(playAgain,SIGNAL(clicked()),this,SLOT(gameRestart()));
+
+    My_button* close = new My_button(QString("Koniec"),game_OverButtons_parent);
+    close->setPos(410,HIGHT_SCREAN/2+105);
+    connect(close,SIGNAL(clicked()),this,SLOT(close()));
+
+
+    scene->addItem(game_OverButtons_parent);
+    gif(true);
 }
 
-void Tiene::showGif()
+void Tiene::addGif()
 {
-    QMovie *movie = new QMovie(":/game/tiene/games/G_Log_tiene/textur/hviezdicky.gif");
-    QLabel *aniLabel = new QLabel(this);
+    movie = new QMovie(":/game/tiene/games/G_Log_tiene/textur/hviezdicky.gif");
+    aniLabel = new QLabel(this);
     aniLabel->setMovie(movie);
-    //aniLabel->setGeometry(WIDTH_SCREAN/2-190,HIGHT_SCREAN/2-190,100,100);
+    aniLabel->setGeometry(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-120,150,150);
     movie->start();
+
+    gif(false);
+
     scene->addWidget(aniLabel);
+
+}
+
+inline void Tiene::gif(bool show)
+{
+    if(show){
+        aniLabel->show();
+    } else {
+        aniLabel->hide();
+    }
 }
 
 void Tiene::init_kurzor(QString textur,QPointF pos)

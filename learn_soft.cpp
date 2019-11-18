@@ -11,6 +11,11 @@
 //global variable
 Tiene *tien;
 
+/*void Learn_soft::resizeEvent(QResizeEvent *event)
+{
+    fitInView(sceneRect(), Qt::KeepAspectRatio);
+}*/
+
 Learn_soft::Learn_soft(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Learn_soft)
@@ -43,7 +48,7 @@ void Learn_soft::on_btn_1_clicked()
             //anj game1
             break;
         case LOG:
-            tien = new Tiene();
+            tien = new Tiene(this);
             tien->show();
             break;
         case MAT:

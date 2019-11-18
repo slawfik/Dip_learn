@@ -23,9 +23,6 @@
         <file>images/G_TIEN_ON.png</file>
     </qresource>
     <qresource prefix="/game/tiene">
-        <file>games/G_Log_tiene/textur/check_box.png</file>
-        <file>games/G_Log_tiene/textur/check_box_NO.png</file>
-        <file>games/G_Log_tiene/textur/check_box_YES.png</file>
         <file>games/G_Log_tiene/textur/jezko.png</file>
         <file>games/G_Log_tiene/textur/jezko_ON.png</file>
         <file>games/G_Log_tiene/textur/jezko_T.png</file>

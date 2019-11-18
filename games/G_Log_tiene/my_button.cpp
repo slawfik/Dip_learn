@@ -1,7 +1,7 @@
 #include "my_button.h"
 #include <QGraphicsTextItem>
 #include <QBrush>
-#include "my_button.h"
+//#include "tiene.h"
 
 
 My_button::My_button(QString name, QGraphicsItem *parent): QGraphicsRectItem(parent){
@@ -35,8 +35,7 @@ void My_button::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::cyan);
     setBrush(brush);
-
-
+    //tien->gameRestart();
 }
 
 void My_button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
