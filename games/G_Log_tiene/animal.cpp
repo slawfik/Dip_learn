@@ -27,7 +27,6 @@ void animal::mousePressEvent(QGraphicsSceneMouseEvent *event)
         tien->changed_mode = true;
         tien->changed_mode_animal = this->id;
         tien->init_kurzor(textur_OFF,event->pos());
-
     }
 }
 

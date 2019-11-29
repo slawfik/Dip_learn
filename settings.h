@@ -11,20 +11,30 @@
 //####STYLESHEETS#####
 
 static QString stylesheet_g1 = "";
-static QString stylesheet_site2_1_COIN = "#btn_1"
-                                         "{ border-image: url(:/img/images/G_TIEN_OFF.png);}"
+static QString stylesheet_site2_1_TIEN = "#btn_1"
+                                         "{ border-image: url(:/img/images/G_TIEN_OFF.png);"
+                                         "border-radius: 15px;}"
                                          "#btn_1:pressed"
                                          "{   border-image: url(:/img/images/G_TIEN_OFF.png); }"
                                          "#btn_1:focus "
-                                         "{   border-image: url(:/img/images/G_TIEN_ON.png); }";;
+                                         "{   border-image: url(:/img/images/G_TIEN_ON.png); }";
+static QString stylesheet_site2_2_VecMen = "#btn_2"
+                                         "{ border-image: url(:/img/images/G_VECMEN_OFF.png);"
+                                         "border-radius: 15px;}"
+                                         "#btn_2:pressed"
+                                         "{   border-image: url(:/img/images/G_VECMEN_OFF.png); }"
+                                         "#btn_2:focus "
+                                         "{   border-image: url(:/img/images/G_VECMEN_ON.png); }";
 static QString stylesheet_site4_1_COIN = "#btn_1"
-                                           "{ border-image: url(:/img/images/G_COIN_OFF.png);}"
-                                           "#btn_1:pressed"
-                                           "{   border-image: url(:/img/images/G_COIN_OFF.png); }"
-                                           "#btn_1:focus "
-                                           "{   border-image: url(:/img/images/G_COIN_ON.png); }";
+                                       "{ border-image: url(:/img/images/G_COIN_OFF.png);"
+                                       "border-radius: 15px;}"
+                                       "#btn_1:pressed"
+                                       "{   border-image: url(:/img/images/G_COIN_OFF.png); }"
+                                       "#btn_1:focus "
+                                       "{   border-image: url(:/img/images/G_COIN_ON.png); }";
 static QString stylesheet_btn_4_ZPET = "#btn_4 "
-                               "{ border-image: url(:/img/images/BT_ZPAT_OFF.png);}"
+                               "{ border-image: url(:/img/images/BT_ZPAT_OFF.png);"
+                               "border-radius: 15px;}"
                                "#btn_4:pressed"
                                "{   border-image: url(:/img/images/BT_ZPAT_OFF.png); }"
                                "#btn_4:focus"

@@ -1,4 +1,4 @@
-    QT       += core gui
+    QT       += core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    games/G_Log_CoJeMensie/my_item.cpp \
+    games/G_Log_CoJeMensie/vecie_mensie.cpp \
     games/G_Log_tiene/animal.cpp \
     games/G_Log_tiene/check_box.cpp \
     games/G_Log_tiene/my_button.cpp \
@@ -23,10 +25,14 @@ SOURCES += \
     games/Mario_coin/coin.cpp \
     games/Mario_coin/hrac.cpp \
     games/Mario_coin/mario_coin.cpp \
+    gamesmethod.cpp \
     main.cpp \
-    learn_soft.cpp
+    learn_soft.cpp \
+    serial_thread.cpp
 
 HEADERS += \
+    games/G_Log_CoJeMensie/my_item.h \
+    games/G_Log_CoJeMensie/vecie_mensie.h \
     games/G_Log_tiene/animal.h \
     games/G_Log_tiene/check_box.h \
     games/G_Log_tiene/my_button.h \
@@ -34,7 +40,9 @@ HEADERS += \
     games/Mario_coin/coin.h \
     games/Mario_coin/hrac.h \
     games/Mario_coin/mario_coin.h \
+    gamesmethod.h \
     learn_soft.h \
+    serial_thread.h \
     settings.h \
     tiene.h
 

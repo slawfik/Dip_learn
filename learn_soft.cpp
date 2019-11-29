@@ -3,38 +3,51 @@
 #include <QDebug>
 #include <QResizeEvent>
 #include "settings.h"
+#include "gamesmethod.h"
 
 //#include game
 #include "games/Mario_coin/mario_coin.h"
 #include "games/G_Log_tiene/tiene.h"
+#include "games/G_Log_CoJeMensie/vecie_mensie.h"
+
+//global variable marked extern
+Tiene *tien = nullptr;
+Vecie_mensie *vec_men = nullptr;
+Mario_coin *marioCoin = nullptr;
 
 //global variable
-Tiene *tien;
-
-/*void Learn_soft::resizeEvent(QResizeEvent *event)
-{
-    fitInView(sceneRect(), Qt::KeepAspectRatio);
-}*/
+GamesMethod *current_runGame = nullptr;
 
 Learn_soft::Learn_soft(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Learn_soft)
 {
-    //ui->btn_1->setFocus();
     ui->setupUi(this);
-
     set_mainPage_Style();
+    newSerialThread.set_run("/dev/ttyUSB0",QSerialPort::Baud9600);
 
+    connect(&newSerialThread, &serialThread::request, this,&Learn_soft::showRequest);
+    connect(&newSerialThread, &serialThread::error, this, &Learn_soft::processError);
 }
 
 Learn_soft::~Learn_soft()
 {
+    if(tien){
+        tien->close();
+        delete tien;
+  } else if(vec_men) {
+        vec_men->close();
+        delete vec_men;
+  } else if (marioCoin) {
+        marioCoin->close();
+        delete marioCoin;
+  }
+    qDebug() << "delete ui";
     delete ui;
 }
 
 void Learn_soft::on_btn_1_clicked()
 {
-    Mario_coin *game;
     switch (menu) {
         case HOME:
             ui->label_temat->setText("Vyber z nasledujúcich hier:");
@@ -50,13 +63,15 @@ void Learn_soft::on_btn_1_clicked()
         case LOG:
             tien = new Tiene(this);
             tien->show();
+            qDebug() << "running ";
             break;
         case MAT:
             //mat game1
             break;
         case ZAB:
-            game= new Mario_coin();
-            game->show();
+            marioCoin= new Mario_coin();
+            marioCoin->show();
+            current_runGame = marioCoin;
             break;
     }
 }
@@ -66,8 +81,8 @@ void Learn_soft::on_btn_2_clicked()
     switch (menu) {
         case HOME:
             ui->label_temat->setText("Vyber z nasledujúcich hier:");
-            ui->btn_1->setStyleSheet(stylesheet_site2_1_COIN);
-            ui->btn_2->hide();
+            ui->btn_1->setStyleSheet(stylesheet_site2_1_TIEN);
+            ui->btn_2->setStyleSheet(stylesheet_site2_2_VecMen);
             ui->btn_3->hide();
             ui->btn_4->setStyleSheet(stylesheet_btn_4_ZPET);
             menu = LOG;
@@ -76,7 +91,9 @@ void Learn_soft::on_btn_2_clicked()
             //anj game2
             break;
         case LOG:
-            //log game2
+            vec_men = new Vecie_mensie();
+            vec_men->show();
+            current_runGame = vec_men;
             break;
         case MAT:
             //mat game2
@@ -154,4 +171,24 @@ void Learn_soft::set_mainPage_Style()
 
     ui->btn_1->setFocus();
     menu = HOME;
+}
+
+
+void Learn_soft::showRequest(const QString &s)
+{
+    if(s == "2"){
+        current_runGame->moveDown();
+    } else     if(s == "8"){
+        current_runGame->moveUp();
+    } else     if(s == "6"){
+        current_runGame->moveRight();
+    } else     if(s == "4"){
+        //left
+        current_runGame->pressTab();
+    }
+}
+
+void Learn_soft::processError(const QString &s)
+{
+    qDebug() << s;
 }

@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QMainWindow>
+#include "serial_thread.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Learn_soft; }
@@ -35,8 +36,11 @@ private slots:
     void on_btn_3_clicked();
 
     void on_btn_4_clicked();
+    void showRequest(const QString &s);
+    void processError(const QString &s);
 
 private:
+    serialThread newSerialThread;
     MENU menu = HOME;
     QPalette palet;
     QPixmap * pixMap;

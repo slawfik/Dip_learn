@@ -8,6 +8,8 @@
 class animal : public QGraphicsPixmapItem
 {
 public:
+    QString textur_OFF;
+
     animal(int num,QString pixmap_path,QGraphicsItem *parent = nullptr);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void manual_Focus_ON();
@@ -18,7 +20,6 @@ public:
 private:
     QPixmap textura;
     QString textur_ON;
-    QString textur_OFF;
     short id;
 };
 

@@ -98,7 +98,6 @@ void Tiene::changeFocus(bool ok_change)
             focusIT = zvierata.begin();
             focusIT.operator*()->manual_Focus_ON();
         } else {
-
             showGameOver("msg");
         }
     } else {
@@ -237,3 +236,45 @@ void Tiene::delete_kurzor()
     kurzor = nullptr;
 }
 
+void Tiene::moveUp()
+{
+    if(kurzor != nullptr)
+        kurzor->setPos(kurzor->x(),kurzor->y()-10);
+}
+
+void Tiene::moveDown()
+{
+    if(kurzor != nullptr)
+        kurzor->setPos(kurzor->x(),kurzor->y()+10);
+}
+
+void Tiene::moveLeft()
+{
+    if(kurzor != nullptr)
+        kurzor->setPos(kurzor->x()+10,kurzor->y());
+}
+
+void Tiene::moveRight()
+{
+    if(kurzor != nullptr)
+        kurzor->setPos(kurzor->x()-10,kurzor->y());
+}
+
+void Tiene::pressEnter()
+{
+    if(!changed_mode)   {
+        changed_mode = true;
+        changed_mode_animal = focusIT.operator*()->getId();
+        init_kurzor(focusIT.operator*()->textur_OFF,QPointF(0,0));
+    } else {
+        //QGraphicsSceneMouseEvent *event;
+        //mousePressEvent(event);
+        qDebug() << "vloy";
+    }
+}
+
+void Tiene::pressTab()
+{
+    if(kurzor == nullptr)
+        changeFocus(false);
+}

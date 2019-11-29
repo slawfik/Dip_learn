@@ -1,10 +1,10 @@
 #include "mario_coin.h"
-#include "hrac.h"
 #include "coin.h"
 #include "../../settings.h"
 
 Mario_coin::Mario_coin(QWidget *parent)
 {
+    Q_UNUSED(parent)
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,WIDTH_SCREAN,HIGHT_SCREAN); // make the scene 800x600 instead of infinity by infinity (default)
     setBackgroundBrush(QBrush(QImage(":/games/Mario_coin/textur/bg2.jpg")));
@@ -14,7 +14,7 @@ Mario_coin::Mario_coin(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(WIDTH_SCREAN,HIGHT_SCREAN);
 
-    Hrac* hrac = new Hrac();
+    hrac = new Hrac();
     hrac->setPos(0,0);
     hrac->setFlag(QGraphicsItem::ItemIsFocusable);
     hrac->setFocus();
@@ -22,5 +22,25 @@ Mario_coin::Mario_coin(QWidget *parent)
     scene->setFocusItem(hrac);
 
     show();
+}
+
+void Mario_coin::moveUp()
+{
+    hrac->setPos(hrac->x(),hrac->y()-10);
+}
+
+void Mario_coin::moveDown()
+{
+    hrac->setPos(hrac->x(),hrac->y()+10);
+}
+
+void Mario_coin::moveLeft()
+{
+    hrac->setPos(hrac->x()-10,hrac->y());
+}
+
+void Mario_coin::moveRight()
+{
+    hrac->setPos(hrac->x()+10,hrac->y());
 }
 

@@ -21,6 +21,8 @@
         <file>images/G_COIN_ON.png</file>
         <file>images/G_TIEN_OFF.png</file>
         <file>images/G_TIEN_ON.png</file>
+        <file>images/G_VECMEN_OFF.png</file>
+        <file>images/G_VECMEN_ON.png</file>
     </qresource>
     <qresource prefix="/game/tiene">
         <file>games/G_Log_tiene/textur/jezko.png</file>
@@ -45,5 +47,22 @@
         <file>games/G_Log_tiene/textur/rerun_G_OFF.png</file>
         <file>games/G_Log_tiene/textur/rerun_G_ON.png</file>
         <file>games/G_Log_tiene/textur/hviezdicky.gif</file>
+    </qresource>
+    <qresource prefix="/game/vecsiMensi">
+        <file>games/G_Log_CoJeMensie/texture/G_mecMen.jpg</file>
+        <file>games/G_Log_CoJeMensie/texture/1.png</file>
+        <file>games/G_Log_CoJeMensie/texture/1_ON.png</file>
+        <file>games/G_Log_CoJeMensie/texture/2.png</file>
+        <file>games/G_Log_CoJeMensie/texture/2_ON.png</file>
+        <file>games/G_Log_CoJeMensie/texture/3.png</file>
+        <file>games/G_Log_CoJeMensie/texture/3_ON.png</file>
+        <file>games/G_Log_CoJeMensie/texture/4.png</file>
+        <file>games/G_Log_CoJeMensie/texture/4_ON.png</file>
+        <file>games/G_Log_CoJeMensie/texture/5.png</file>
+        <file>games/G_Log_CoJeMensie/texture/5_ON.png</file>
+        <file>games/G_Log_CoJeMensie/texture/6.png</file>
+        <file>games/G_Log_CoJeMensie/texture/6_ON.png</file>
+        <file>games/G_Log_CoJeMensie/texture/7.png</file>
+        <file>games/G_Log_CoJeMensie/texture/7_ON.png</file>
     </qresource>
 </RCC>

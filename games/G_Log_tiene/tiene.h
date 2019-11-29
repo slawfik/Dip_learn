@@ -6,8 +6,9 @@
 #include "check_box.h"
 #include <QList>
 #include <QLabel>
+#include "../../gamesmethod.h"
 
-class Tiene : public QGraphicsView
+class Tiene : public QGraphicsView , public GamesMethod
 {
     Q_OBJECT
 public:    
@@ -34,6 +35,14 @@ public:
     void showGameOver(QString msg);
     void addGif();
     inline void gif(bool show);
+
+    /*funkcie pre ovladanie*/
+    void moveUp() override;
+    void moveDown() override;
+    void moveLeft() override;
+    void pressTab() override;
+    void moveRight() override;
+    void pressEnter() override;
 
 public slots:
     void gameRestart();
