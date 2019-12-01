@@ -26,21 +26,21 @@ Mario_coin::Mario_coin(QWidget *parent)
 
 void Mario_coin::moveUp()
 {
-    hrac->setPos(hrac->x(),hrac->y()-10);
+    hrac->setPos(hrac->x(),hrac->y()-MOVE_STEP);
 }
 
 void Mario_coin::moveDown()
 {
-    hrac->setPos(hrac->x(),hrac->y()+10);
+    hrac->setPos(hrac->x(),hrac->y()+MOVE_STEP);
 }
 
 void Mario_coin::moveLeft()
 {
-    hrac->setPos(hrac->x()-10,hrac->y());
+    hrac->setPos(hrac->x()-MOVE_STEP,hrac->y());
 }
 
 void Mario_coin::moveRight()
 {
-    hrac->setPos(hrac->x()+10,hrac->y());
+    hrac->setPos(hrac->x()+MOVE_STEP,hrac->y());
 }
 

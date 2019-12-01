@@ -4,7 +4,6 @@
 #include <QTimer>
 #include <QDebug>
 #include <stdlib.h>
-#include <QGraphicsScene>
 #include "../../settings.h"
 
 Coin::~Coin()

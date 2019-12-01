@@ -7,11 +7,11 @@
 
 //#include game
 #include "games/Mario_coin/mario_coin.h"
-#include "games/G_Log_tiene/tiene.h"
+#include "games/G_Log_Tien/prirad_tiene.h"
 #include "games/G_Log_CoJeMensie/vecie_mensie.h"
 
 //global variable marked extern
-Tiene *tien = nullptr;
+PriradTiene *tien = nullptr;
 Vecie_mensie *vec_men = nullptr;
 Mario_coin *marioCoin = nullptr;
 
@@ -61,8 +61,9 @@ void Learn_soft::on_btn_1_clicked()
             //anj game1
             break;
         case LOG:
-            tien = new Tiene(this);
+            tien = new PriradTiene(this);
             tien->show();
+            current_runGame = tien;
             qDebug() << "running ";
             break;
         case MAT:
@@ -173,18 +174,22 @@ void Learn_soft::set_mainPage_Style()
     menu = HOME;
 }
 
-
 void Learn_soft::showRequest(const QString &s)
 {
-    if(s == "2"){
-        current_runGame->moveDown();
-    } else     if(s == "8"){
-        current_runGame->moveUp();
-    } else     if(s == "6"){
-        current_runGame->moveRight();
-    } else     if(s == "4"){
-        //left
-        current_runGame->pressTab();
+    if(current_runGame){
+        if(s == "2"){
+            current_runGame->moveDown();
+        } else     if(s == "8"){
+            current_runGame->moveUp();
+        } else     if(s == "6"){
+            current_runGame->moveRight();
+        } else     if(s == "4"){
+            current_runGame->moveLeft();
+        } else     if(s == "e"){
+            current_runGame->pressEnter();
+        } else     if(s == "t"){
+            current_runGame->pressTab();
+        }
     }
 }
 

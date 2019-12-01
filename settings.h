@@ -1,10 +1,11 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 #include <QString>
+#include <QGraphicsScene>
 
 #define WIDTH_SCREAN 1200
 #define HIGHT_SCREAN 700
-
+#define MOVE_STEP 20
 
 
 

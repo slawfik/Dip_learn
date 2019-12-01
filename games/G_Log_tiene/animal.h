@@ -1,27 +1,24 @@
 #ifndef ANIMAL_H
 #define ANIMAL_H
+
+#include <QObject>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsSceneMouseEvent>
 
-class Animal :  public QObject , public QGraphicsPixmapItem
+class animal : public QGraphicsPixmapItem
 {
-    Q_OBJECT
 public:
     QString textur_OFF;
 
-    Animal(short pa_id,QString pixmap_path,QGraphicsItem *parent = nullptr);
+    animal(int num,QString pixmap_path,QGraphicsItem *parent = nullptr);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
-    void manual_Focus_IN();
-    void manual_Focus_OUT();
+    void manual_Focus_ON();
+    void manual_Focus_OFF();
 
     short getId() const;
 
-
-signals:
-    void pressed_On_Animal(Animal*);
-
 private:
+    QPixmap textura;
     QString textur_ON;
     short id;
 };

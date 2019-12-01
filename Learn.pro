@@ -18,10 +18,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     games/G_Log_CoJeMensie/my_item.cpp \
     games/G_Log_CoJeMensie/vecie_mensie.cpp \
-    games/G_Log_tiene/animal.cpp \
-    games/G_Log_tiene/check_box.cpp \
-    games/G_Log_tiene/my_button.cpp \
-    games/G_Log_tiene/tiene.cpp \
+    games/G_Log_Tien/animal.cpp \
+    games/G_Log_Tien/my_button.cpp \
+    games/G_Log_Tien/prirad_tiene.cpp \
+    games/G_Log_Tien/tiene.cpp \
     games/Mario_coin/coin.cpp \
     games/Mario_coin/hrac.cpp \
     games/Mario_coin/mario_coin.cpp \
@@ -33,10 +33,10 @@ SOURCES += \
 HEADERS += \
     games/G_Log_CoJeMensie/my_item.h \
     games/G_Log_CoJeMensie/vecie_mensie.h \
-    games/G_Log_tiene/animal.h \
-    games/G_Log_tiene/check_box.h \
-    games/G_Log_tiene/my_button.h \
-    games/G_Log_tiene/tiene.h \
+    games/G_Log_Tien/animal.h \
+    games/G_Log_Tien/my_button.h \
+    games/G_Log_Tien/prirad_tiene.h \
+    games/G_Log_Tien/tiene.h \
     games/Mario_coin/coin.h \
     games/Mario_coin/hrac.h \
     games/Mario_coin/mario_coin.h \

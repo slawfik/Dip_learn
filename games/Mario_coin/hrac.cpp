@@ -2,10 +2,10 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QList>
-#include <QGraphicsItem>
-#include <QGraphicsScene>
+#include <qgraphicsitem.h>
 #include <QDebug>
 #include "games/Mario_coin/coin.h"
+#include <QGraphicsScene>
 
 Hrac::~Hrac()
 {
