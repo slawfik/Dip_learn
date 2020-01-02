@@ -3,7 +3,8 @@
 
 #include <QGraphicsPixmapItem>
 #include <QMainWindow>
-#include "serial_thread.h"
+#include "src/serial_thread.h"
+#include "src/dialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Learn_soft; }
@@ -11,10 +12,10 @@ QT_END_NAMESPACE
 
 typedef enum site{
     HOME = 0,
-    ANJ = 1,
-    LOG = 2,
-    MAT = 3,
-    ZAB = 4
+    MaOS_1 = 1,
+    PaP_2 = 2,
+    MAT_3 = 3,
+    ZAB_4 = 4
 }MENU;
 
 class Learn_soft : public QMainWindow
@@ -39,7 +40,10 @@ private slots:
     void showRequest(const QString &s);
     void processError(const QString &s);
 
+    void on_btn_settings_clicked();
+
 private:
+    Dialog serialInfoDialog;
     serialThread newSerialThread;
     MENU menu = HOME;
     QPalette palet;

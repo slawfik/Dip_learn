@@ -16,35 +16,36 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    games/G_Log_CoJeMensie/my_item.cpp \
-    games/G_Log_CoJeMensie/vecie_mensie.cpp \
-    games/G_Log_Tien/animal.cpp \
-    games/G_Log_Tien/my_button.cpp \
-    games/G_Log_Tien/prirad_tiene.cpp \
-    games/G_Log_Tien/tiene.cpp \
-    games/Mario_coin/coin.cpp \
-    games/Mario_coin/hrac.cpp \
-    games/Mario_coin/mario_coin.cpp \
-    gamesmethod.cpp \
+    games/G_PaP_CoJeMensie/my_item.cpp \
+    games/G_PaP_CoJeMensie/vecie_mensie.cpp \
+    games/G_MaOS_tiene/animal.cpp \
+    games/G_MaOS_tiene/prirad_tiene.cpp \
+    games/G_MaOS_tiene/tiene.cpp \
+    games/G_Zab_Mario_coin/coin.cpp \
+    games/G_Zab_Mario_coin/hrac.cpp \
+    games/G_Zab_Mario_coin/mario_coin.cpp \
+    games/utils/my_button.cpp \
+    src/gamesmethod.cpp \
     main.cpp \
     learn_soft.cpp \
-    serial_thread.cpp
+    src/serial_thread.cpp \
+    src/dialog.cpp
 
 HEADERS += \
-    games/G_Log_CoJeMensie/my_item.h \
-    games/G_Log_CoJeMensie/vecie_mensie.h \
-    games/G_Log_Tien/animal.h \
-    games/G_Log_Tien/my_button.h \
-    games/G_Log_Tien/prirad_tiene.h \
-    games/G_Log_Tien/tiene.h \
-    games/Mario_coin/coin.h \
-    games/Mario_coin/hrac.h \
-    games/Mario_coin/mario_coin.h \
-    gamesmethod.h \
+    games/G_PaP_CoJeMensie/my_item.h \
+    games/G_PaP_CoJeMensie/vecie_mensie.h \
+    games/G_MaOS_tiene/animal.h \
+    games/G_MaOS_tiene/prirad_tiene.h \
+    games/G_MaOS_tiene/tiene.h \
+    games/G_Zab_Mario_coin/coin.h \
+    games/G_Zab_Mario_coin/hrac.h \
+    games/G_Zab_Mario_coin/mario_coin.h \
+    games/utils/my_button.h \
+    src/gamesmethod.h \
     learn_soft.h \
-    serial_thread.h \
-    settings.h \
-    tiene.h
+    src/serial_thread.h \
+    settings.h \ \
+    src/dialog.h
 
 FORMS += \
     learn_soft.ui

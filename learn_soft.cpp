@@ -3,12 +3,13 @@
 #include <QDebug>
 #include <QResizeEvent>
 #include "settings.h"
-#include "gamesmethod.h"
+#include "src/gamesmethod.h"
+#include "src/dialog.h"
 
 //#include game
-#include "games/Mario_coin/mario_coin.h"
-#include "games/G_Log_Tien/prirad_tiene.h"
-#include "games/G_Log_CoJeMensie/vecie_mensie.h"
+#include "games/G_Zab_Mario_coin/mario_coin.h"
+#include "games/G_MaOS_tiene/prirad_tiene.h"
+#include "games/G_PaP_CoJeMensie/vecie_mensie.h"
 
 //global variable marked extern
 PriradTiene *tien = nullptr;
@@ -24,10 +25,10 @@ Learn_soft::Learn_soft(QWidget *parent)
 {
     ui->setupUi(this);
     set_mainPage_Style();
-    newSerialThread.set_run("/dev/ttyUSB0",QSerialPort::Baud9600);
+    /*newSerialThread.set_run("/dev/ttyUSB1",QSerialPort::Baud9600);
 
     connect(&newSerialThread, &serialThread::request, this,&Learn_soft::showRequest);
-    connect(&newSerialThread, &serialThread::error, this, &Learn_soft::processError);
+    connect(&newSerialThread, &serialThread::error, this, &Learn_soft::processError);*/
 }
 
 Learn_soft::~Learn_soft()
@@ -51,25 +52,28 @@ void Learn_soft::on_btn_1_clicked()
     switch (menu) {
         case HOME:
             ui->label_temat->setText("Vyber z nasledujúcich hier:");
-            ui->btn_1->hide();
+            ui->btn_1->setStyleSheet(stylesheet_site1_1_TIEN);
             ui->btn_2->hide();
             ui->btn_3->hide();
             ui->btn_4->setStyleSheet(stylesheet_btn_4_ZPET);
-            menu = ANJ;
+            ui->btn_settings->hide();
+            menu = MaOS_1;
             break;
-        case ANJ:
-            //anj game1
-            break;
-        case LOG:
+        case MaOS_1:
             tien = new PriradTiene(this);
             tien->show();
             current_runGame = tien;
             qDebug() << "running ";
             break;
-        case MAT:
+        case PaP_2:
+            vec_men = new Vecie_mensie();
+            vec_men->show();
+            current_runGame = vec_men;
+            break;
+        case MAT_3:
             //mat game1
             break;
-        case ZAB:
+        case ZAB_4:
             marioCoin= new Mario_coin();
             marioCoin->show();
             current_runGame = marioCoin;
@@ -82,24 +86,23 @@ void Learn_soft::on_btn_2_clicked()
     switch (menu) {
         case HOME:
             ui->label_temat->setText("Vyber z nasledujúcich hier:");
-            ui->btn_1->setStyleSheet(stylesheet_site2_1_TIEN);
-            ui->btn_2->setStyleSheet(stylesheet_site2_2_VecMen);
+            ui->btn_1->setStyleSheet(stylesheet_site2_1_CoJeMen);
+            ui->btn_2->setStyleSheet(stylesheet_site2_2_NajdiObr);
             ui->btn_3->hide();
             ui->btn_4->setStyleSheet(stylesheet_btn_4_ZPET);
-            menu = LOG;
+            ui->btn_settings->hide();
+            menu = PaP_2;
             break;
-        case  ANJ:
+        case  MaOS_1:
             //anj game2
             break;
-        case LOG:
-            vec_men = new Vecie_mensie();
-            vec_men->show();
-            current_runGame = vec_men;
+        case PaP_2:
+            qDebug() << "Najdi obr";
             break;
-        case MAT:
+        case MAT_3:
             //mat game2
             break;
-        case ZAB:
+        case ZAB_4:
             //zab game2
             break;
     }
@@ -114,18 +117,19 @@ void Learn_soft::on_btn_3_clicked()
             ui->btn_2->hide();
             ui->btn_3->hide();
             ui->btn_4->setStyleSheet(stylesheet_btn_4_ZPET);
-            menu = MAT;
+            ui->btn_settings->hide();
+            menu = MAT_3;
             break;
-        case  ANJ:
+        case  MaOS_1:
             //anj game3
             break;
-        case LOG:
-            //log game3
+        case PaP_2:
+            //PaP_2 game3
             break;
-        case MAT:
+        case MAT_3:
             //mat game3
             break;
-        case ZAB:
+        case ZAB_4:
             //zab game3
             break;
     }
@@ -140,18 +144,19 @@ void Learn_soft::on_btn_4_clicked()
             ui->btn_2->hide();
             ui->btn_3->hide();
             ui->btn_4->setStyleSheet(stylesheet_btn_4_ZPET);
-            menu = ZAB;
+            ui->btn_settings->hide();
+            menu = ZAB_4;
             break;
-        case  ANJ:
+        case  MaOS_1:
             set_mainPage_Style();
             break;
-        case LOG:
+        case PaP_2:
             set_mainPage_Style();
             break;
-        case MAT:
+        case MAT_3:
             set_mainPage_Style();
             break;
-        case ZAB:
+        case ZAB_4:
             set_mainPage_Style();
             break;
     }
@@ -169,6 +174,9 @@ void Learn_soft::set_mainPage_Style()
     ui->btn_3->setStyleSheet(stylesheet_site1_3);
     ui->btn_4->show();
     ui->btn_4->setStyleSheet(stylesheet_site1_4);
+
+    ui->btn_settings->show();
+    ui->btn_settings->setStyleSheet(stylesheet_site1_sett);
 
     ui->btn_1->setFocus();
     menu = HOME;
@@ -193,7 +201,17 @@ void Learn_soft::showRequest(const QString &s)
     }
 }
 
+/*serial slot error handle*/
 void Learn_soft::processError(const QString &s)
 {
     qDebug() << s;
+}
+
+void Learn_soft::on_btn_settings_clicked()
+{
+    if(serialInfoDialog.exec()){
+        newSerialThread.set_run(serialInfoDialog.getSerialPort(),QSerialPort::Baud9600);
+        connect(&newSerialThread, &serialThread::request, this,&Learn_soft::showRequest);
+        connect(&newSerialThread, &serialThread::error, this, &Learn_soft::processError);
+    }
 }
