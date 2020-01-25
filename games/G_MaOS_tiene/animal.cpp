@@ -15,6 +15,7 @@ Animal::Animal(short pa_id, QString pixmap_path, QGraphicsItem *parent)
 
 void Animal::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    Q_UNUSED(event)
     emit pressed_On_Animal(this);
 }
 

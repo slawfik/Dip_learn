@@ -51,6 +51,7 @@ Tiene::Tiene(short pa_id, QGraphicsItem *parent) : QGraphicsPixmapItem(parent) ,
 
 void Tiene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    Q_UNUSED(event)
     emit pressed_On_Tiene(this);
 }
 

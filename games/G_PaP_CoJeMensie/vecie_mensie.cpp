@@ -33,10 +33,13 @@ Vecie_mensie::Vecie_mensie(QWidget *parent)
 
 Vecie_mensie::~Vecie_mensie()
 {
-    if(movie){
+    if(movie != nullptr){
+        qDebug() << "~Vecie_mensie.cpp 37 delete movie";
         delete movie;
     }
+    //Removes and deletes all items from the scene
     scene->clear();
+    delete scene;
 }
 
 void Vecie_mensie::drawPanel(int x, int y, int width, int height, QColor color, double opacity){
@@ -185,7 +188,7 @@ void Vecie_mensie::my_ItemPressSlot(My_item* obj)
     }
     /*vyhodnotenie eventu*/
     if(obj->hodnota < focusedItems.operator[]((curent_focus == 0)? 1 : 0)->hodnota) {
-        qDebug() << "OK BOD! ";
+        //qDebug() << "OK BOD! ";
         body++;
     }
 

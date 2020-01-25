@@ -8,6 +8,12 @@
 //nemozno menej ako 700
 #define HIGHT_SCREAN 700
 #define MOVE_STEP 20
+#define FONT_IN_GAME "Farm to Market Fancy"
+#define FONT_GAME_SIZE1 50
+#define FONT_GAME_SIZE2 30
+
+#define x_ODSADENIE_PLATNA 150
+#define y_ODSADENIE_PLATNA 70
 
 
 
@@ -18,9 +24,16 @@ static QString stylesheet_site1_1_TIEN = "#btn_1"
                                          "{ border-image: url(:/img/images/MaOS_priradTiene_OFF.png);"
                                          "border-radius: 15px;}"
                                          "#btn_1:pressed"
-                                         "{   border-image: url(:/img/images/MaOS_priradTiene_OFF.png); }"
+                                         "{   border-image: url(:/img/images/MaOS_priradTiene_ON.png); }"
                                          "#btn_1:focus "
                                          "{   border-image: url(:/img/images/MaOS_priradTiene_OFF.png); }";
+static QString stylesheet_site1_2_RocObd = "#btn_2"
+                                         "{ border-image: url(:/img/images/MaOS_rocneObdob_OFF.png);"
+                                         "border-radius: 15px;}"
+                                         "#btn_1:pressed"
+                                         "{   border-image: url(:/img/images/MaOS_rocneObdob_ON.png); }"
+                                         "#btn_1:focus "
+                                         "{   border-image: url(:/img/images/MaOS_rocneObdob_OFF.png); }";
 static QString stylesheet_site2_1_CoJeMen = "#btn_1"
                                          "{ border-image: url(:/img/images/PaP_coJeMensie_OFF.png);"
                                          "border-radius: 15px;}"

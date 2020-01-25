@@ -23,6 +23,8 @@
         <file>images/Zabava_ON.png</file>
         <file>images/Zab_peniazky_OFF.png</file>
         <file>images/Zab_peniazky_ON.png</file>
+        <file>images/MaOS_rocneObdob_OFF.png</file>
+        <file>images/MaOS_rocneObdob_ON.png</file>
     </qresource>
     <qresource prefix="/game/tiene">
         <file>games/G_MaOS_tiene/textur/zajacik.png</file>
@@ -46,7 +48,6 @@
         <file>games/G_MaOS_tiene/textur/orol_T.png</file>
         <file>games/G_MaOS_tiene/textur/rerun_G_OFF.png</file>
         <file>games/G_MaOS_tiene/textur/rerun_G_ON.png</file>
-        <file>games/G_MaOS_tiene/textur/hviezdicky.gif</file>
     </qresource>
     <qresource prefix="/game/vecsiMensi">
         <file>games/G_PaP_CoJeMensie/texture/G_mecMen.jpg</file>
@@ -68,6 +69,9 @@
     <qresource prefix="/game/score">
         <file>games/utils/textur/hviezdicky.gif</file>
         <file>games/utils/textur/hviezdicky2.gif</file>
+        <file>games/utils/textur/smajlik.gif</file>
+        <file>games/utils/textur/sipka.png</file>
+        <file>games/utils/textur/potvrdenie.png</file>
     </qresource>
     <qresource prefix="/game/Coin">
         <file>games/G_Zab_Mario_coin/textur/bg1.jpg</file>
@@ -75,5 +79,39 @@
         <file>games/G_Zab_Mario_coin/textur/coin.png</file>
         <file>games/G_Zab_Mario_coin/textur/bg2.jpg</file>
         <file>games/G_Zab_Mario_coin/textur/medved.jpg</file>
+    </qresource>
+    <qresource prefix="/game/najdiObr">
+        <file>games/G_PaP_NajdiObrazok/textur/AUTO1_ON.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/AUTO1.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/AUTO2.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/AUTO2_ON.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/AUTO3.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/AUTO3_ON.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/AUTO4.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/AUTO4_ON.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/hrib1_ON.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/hrib1.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/hrib2.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/hrib2_ON.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/hrib3.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/hrib3_ON.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/hrib4_ON.png</file>
+        <file>games/G_PaP_NajdiObrazok/textur/hrib4.png</file>
+    </qresource>
+    <qresource prefix="/game/rokObdobia">
+        <file>games/G_MaOS_RocneObdobia/textur/zadnaStrana.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/5.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/7.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/6.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/8.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/8_ON.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/5_ON.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/7_ON.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/6_ON.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/3.jpg</file>
+        <file>games/G_MaOS_RocneObdobia/textur/2.jpg</file>
+        <file>games/G_MaOS_RocneObdobia/textur/4.jpg</file>
+        <file>games/G_MaOS_RocneObdobia/textur/1.jpg</file>
+        <file>games/G_MaOS_RocneObdobia/textur/zadnaStrana_ON.png</file>
     </qresource>
 </RCC>

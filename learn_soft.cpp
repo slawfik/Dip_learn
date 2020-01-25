@@ -10,11 +10,15 @@
 #include "games/G_Zab_Mario_coin/mario_coin.h"
 #include "games/G_MaOS_tiene/prirad_tiene.h"
 #include "games/G_PaP_CoJeMensie/vecie_mensie.h"
+#include "games/G_PaP_NajdiObrazok/najdi_obrazok.h"
+#include "games/G_MaOS_RocneObdobia/rocne_obdobia.h"
 
 //global variable marked extern
 PriradTiene *tien = nullptr;
 Vecie_mensie *vec_men = nullptr;
 Mario_coin *marioCoin = nullptr;
+Najdi_obrazok *najdiObr = nullptr;
+Rocne_obdobia *rocObdob = nullptr;
 
 //global variable
 GamesMethod *current_runGame = nullptr;
@@ -36,13 +40,19 @@ Learn_soft::~Learn_soft()
     if(tien){
         tien->close();
         delete tien;
-  } else if(vec_men) {
+    }
+    if(vec_men) {
         vec_men->close();
         delete vec_men;
-  } else if (marioCoin) {
+    }
+    if (marioCoin) {
         marioCoin->close();
         delete marioCoin;
-  }
+    }
+    if (rocObdob) {
+      rocObdob->close();
+      delete rocObdob;
+    }
     qDebug() << "delete ui";
     delete ui;
 }
@@ -53,7 +63,7 @@ void Learn_soft::on_btn_1_clicked()
         case HOME:
             ui->label_temat->setText("Vyber z nasledujúcich hier:");
             ui->btn_1->setStyleSheet(stylesheet_site1_1_TIEN);
-            ui->btn_2->hide();
+            ui->btn_2->setStyleSheet(stylesheet_site1_2_RocObd);
             ui->btn_3->hide();
             ui->btn_4->setStyleSheet(stylesheet_btn_4_ZPET);
             ui->btn_settings->hide();
@@ -94,10 +104,14 @@ void Learn_soft::on_btn_2_clicked()
             menu = PaP_2;
             break;
         case  MaOS_1:
-            //anj game2
+            rocObdob = new Rocne_obdobia();
+            rocObdob->show();
+            current_runGame = rocObdob;
             break;
         case PaP_2:
-            qDebug() << "Najdi obr";
+            najdiObr = new Najdi_obrazok();
+            najdiObr->show();
+            current_runGame = najdiObr;
             break;
         case MAT_3:
             //mat game2

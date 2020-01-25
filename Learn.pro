@@ -16,15 +16,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    games/G_MaOS_RocneObdobia/pexesopole.cpp \
+    games/G_MaOS_RocneObdobia/rocne_obdobia.cpp \
     games/G_PaP_CoJeMensie/my_item.cpp \
     games/G_PaP_CoJeMensie/vecie_mensie.cpp \
     games/G_MaOS_tiene/animal.cpp \
     games/G_MaOS_tiene/prirad_tiene.cpp \
     games/G_MaOS_tiene/tiene.cpp \
+    games/G_PaP_NajdiObrazok/najdi_obrazok.cpp \
     games/G_Zab_Mario_coin/coin.cpp \
     games/G_Zab_Mario_coin/hrac.cpp \
     games/G_Zab_Mario_coin/mario_coin.cpp \
     games/utils/my_button.cpp \
+    games/utils/my_items.cpp \
+    games/utils/my_scenes.cpp \
     src/gamesmethod.cpp \
     main.cpp \
     learn_soft.cpp \
@@ -32,15 +37,20 @@ SOURCES += \
     src/dialog.cpp
 
 HEADERS += \
+    games/G_MaOS_RocneObdobia/pexesopole.h \
+    games/G_MaOS_RocneObdobia/rocne_obdobia.h \
     games/G_PaP_CoJeMensie/my_item.h \
     games/G_PaP_CoJeMensie/vecie_mensie.h \
     games/G_MaOS_tiene/animal.h \
     games/G_MaOS_tiene/prirad_tiene.h \
     games/G_MaOS_tiene/tiene.h \
+    games/G_PaP_NajdiObrazok/najdi_obrazok.h \
     games/G_Zab_Mario_coin/coin.h \
     games/G_Zab_Mario_coin/hrac.h \
     games/G_Zab_Mario_coin/mario_coin.h \
     games/utils/my_button.h \
+    games/utils/my_items.h \
+    games/utils/my_scenes.h \
     src/gamesmethod.h \
     learn_soft.h \
     src/serial_thread.h \

@@ -11,6 +11,7 @@ class PriradTiene : public QGraphicsView , public GamesMethod
 {
     Q_OBJECT
 public:
+    QMovie *movie = nullptr;
     QGraphicsPixmapItem * kurzor;
     QGraphicsScene *scene;
     Tiene *reset_BTN;
@@ -22,7 +23,7 @@ public:
     int chanded_mode_animal;
 
     PriradTiene(QWidget *parent);
-    virtual ~PriradTiene();
+    virtual ~PriradTiene() override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
 
@@ -38,8 +39,10 @@ public slots:
     void pressEnter_Animal(Animal *a);
     void pressEnter_Tiene(Tiene *t);
     void pressEnter_ResetGame_Tiene(Tiene *t);
+    void restartGame();
 
 private:
+    void showGameOver();
     void setNewGame();
     void init_Kurzor(const QString textura);
     void delete_Kurzor();

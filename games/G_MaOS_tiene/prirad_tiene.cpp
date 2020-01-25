@@ -2,6 +2,8 @@
 #include <QDebug>
 #include <QMouseEvent>
 #include <qgraphicsitem.h>
+#include "../utils/my_button.h"
+#include <QMovie>
 
 PriradTiene::PriradTiene(QWidget *parent)
 {
@@ -29,6 +31,10 @@ PriradTiene::~PriradTiene()
 {
     scene->clear();
     l_animal.clear();
+    if(movie){
+        qDebug() << "~prirad_Tiene.cpp 37 delete movie";
+        delete movie;
+    }
     delete scene;
 }
 
@@ -72,6 +78,19 @@ void PriradTiene::pressEnter_Tiene(Tiene *t)
 
 void PriradTiene::pressEnter_ResetGame_Tiene(Tiene *t)
 {
+    Q_UNUSED(t)
+    //Removes and deletes all items from the scene
+    scene->clear();
+    l_animal.clear(); //koli nedokoncenej hre
+    setNewGame();
+}
+
+void PriradTiene::restartGame()
+{
+    if(movie){
+        delete movie;
+        movie = nullptr;
+    }
     //Removes and deletes all items from the scene
     scene->clear();
     l_animal.clear(); //koli nedokoncenej hre
@@ -89,6 +108,8 @@ void PriradTiene::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Tab) {
         change_Focus(false);
+    } else  if(event->key() == Qt::Key_Space) {
+        showGameOver();
     }
 }
 
@@ -152,6 +173,38 @@ void PriradTiene::pressEnter()
     }
 }
 
+void PriradTiene::showGameOver()
+{
+    // pop up semi transparent panel
+    scene->addItem(My_button::drawPanel(0,0,WIDTH_SCREAN,HIGHT_SCREAN,Qt::black,0.65));
+
+    // draw panel
+    scene->addItem(My_button::drawPanel(WIDTH_SCREAN/2-250,HIGHT_SCREAN/2-200,500,400,Qt::lightGray,0.75));
+
+    QGraphicsTextItem* titleText = new QGraphicsTextItem(QString("Super zvladol si to na:"));
+    QFont titleFont("Farm to Market Fancy",50);
+    titleText->setFont(titleFont);
+    titleText->setPos(WIDTH_SCREAN/2 - titleText->boundingRect().width()/2,HIGHT_SCREAN/2-200);
+    scene->addItem(titleText);
+
+    // parent item for Button
+    QGraphicsRectItem *game_OverButtons_parent = new QGraphicsRectItem();
+
+    My_button* playAgain = new My_button(QString("Hrať znova"),game_OverButtons_parent);
+    playAgain->setPos(410,HIGHT_SCREAN/2+50);
+    connect(playAgain,SIGNAL(clicked()),this,SLOT(restartGame()));
+
+    My_button* close = new My_button(QString("Koniec"),game_OverButtons_parent);
+    close->setPos(410,HIGHT_SCREAN/2+105);
+    connect(close,SIGNAL(clicked()),this,SLOT(close()));
+
+    scene->addItem(game_OverButtons_parent);
+
+    /*ADD Gif*/
+    scene->addWidget(My_button::showGif(movie,QString(":/game/score/games/utils/textur/hviezdicky.gif"),
+                                        QPoint(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-110)));
+}
+
 void PriradTiene::init_Kurzor(const QString textura)
 {
     if(kurzor) {
@@ -197,6 +250,7 @@ void PriradTiene::change_Focus(bool odznova)
             }
         }
     } else {
+        showGameOver();
         // end game
     }
 }
