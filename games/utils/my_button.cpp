@@ -4,7 +4,6 @@
 #include <QMovie>
 #include "../../settings.h"
 
-
 My_button::My_button(QString name, QGraphicsItem *parent): QGraphicsRectItem(parent){
     // draw the rect
     setRect(0,0,380,50);
@@ -71,4 +70,38 @@ QLabel *My_button::showGif(QMovie *movie,QString pixMap,QPoint point)
 
     aniLabel->show();
     return aniLabel;    //scene->addWidget(aniLabel);
+}
+
+QGraphicsTextItem* My_button::showTitleText(QString data)
+{
+    //title text
+    QGraphicsTextItem* titleText = new QGraphicsTextItem(QString(data));
+    QFont titleFont(FONT_IN_GAME,FONT_GAME_SIZE1);
+    titleText->setFont(titleFont);
+    titleText->setPos(WIDTH_SCREAN/2 - titleText->boundingRect().width()/2,5);
+    return titleText;
+}
+
+QGraphicsTextItem *My_button::show_own_TitleText(QString data, QPoint point, int size_font,bool center_onThisPoint,qreal text_Len)
+{
+    QGraphicsTextItem* titleText = new QGraphicsTextItem(QString(data));
+    QFont titleFont(FONT_IN_GAME,size_font);
+    titleText->setFont(titleFont);
+    if(center_onThisPoint){
+        titleText->setPos(point.x() - titleText->boundingRect().width()/2,point.y());
+    } else {
+        titleText->setTextWidth(text_Len);
+        titleText->setPos(point);
+    }
+    return titleText;
+}
+
+QGraphicsPixmapItem *My_button::showImage(QPoint point, QString img_path,QSize velkost)
+{
+    QGraphicsPixmapItem* img = new QGraphicsPixmapItem();
+    QPixmap pix(img_path);
+
+    img->setPixmap(pix.scaled(velkost));
+    img->setPos(point.x()-(velkost.width()/2),point.y());
+    return img;
 }

@@ -16,19 +16,20 @@ private:
     QTimer *hideTimer = nullptr;
     QTimer *focusTimer = nullptr;
     QString path_OFF;
-    QString path_ON; // private
+    QString path_ON;
     QSize velkost;
     const QPointF poz;
     int hodnota;
-    bool focusMutexLock = false;
 
 public:
+    static bool generateRandomNumberWithoutRepetition(int *arrayGenerated,int pocet,int pa_od,int pa_do);
+
     my_Items();
     my_Items(QPointF pa_poz, QString pixmap_PATH,QSize pa_velkost,const int pa_hodnota,QGraphicsItem *parent = nullptr);
     my_Items(QPointF pa_poz, QString pixmap_OFF,QString pixmap_ON,QSize pa_velkost,const int pa_hodnota,QGraphicsItem *parent = nullptr);
-    virtual ~my_Items();
+    virtual ~my_Items() override;
 
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void focusIn();
     void focusOut();
     void focusOut_withTimeout(int mSec);
@@ -43,8 +44,12 @@ public:
     void start_press_Animation();
     void start_open_Animation();
 
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) override;
+    QRectF boundingRect() const override;
+
 signals:
     void pressed(my_Items*);
+    void pressed();
 
 public slots:
     void s_focus_Out();

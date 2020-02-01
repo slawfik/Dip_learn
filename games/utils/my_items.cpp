@@ -1,9 +1,38 @@
 #include "my_items.h"
 #include <QDebug>
+#include <QPainter>
+#include <random>
+//#define DEF_DEBUG
 
 void my_Items::setPath_OFF(const QString &value)
 {
     path_OFF = value;
+}
+
+//vratane pa_od a bez pa_do
+bool my_Items::generateRandomNumberWithoutRepetition(int *arrayGenerated,int pocet, int pa_od, int pa_do)
+{
+    if(pa_od > pa_do)
+        return false;
+
+    bool check;
+    srand(time(NULL));
+    for(int i=0;i<pocet;i++)    {
+        do {//%(8-0)  +0   0/>7
+            //%(8-1)  +1   1/>7
+            arrayGenerated[i]=( rand() %(pa_do-pa_od))+pa_od;
+
+            check=true;
+            for(int j=0; check && (j<i);j++) {
+                check = (arrayGenerated[i] != arrayGenerated[j]);
+            }
+        } while (check == false);
+    }
+
+    for(int i =0;i<pocet;i++){
+        qDebug() << "int = " << QString::number(arrayGenerated[i]);
+    }
+    return true;
 }
 
 my_Items::my_Items()
@@ -43,12 +72,16 @@ my_Items::~my_Items()
     if(hideTimer){
         delete  hideTimer;
     }
+    if(focusTimer){
+        delete focusTimer;
+    }
 }
 
 void my_Items::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event)
     emit pressed(this);
+    //emit pressed();
 }
 
 void my_Items::focusIn()
@@ -88,6 +121,9 @@ void my_Items::hideWIth_timeout(int mSec)
 void my_Items::s_focus_Out()
 {
     this->setPixmap(QPixmap(path_OFF).scaled(velkost,Qt::IgnoreAspectRatio));
+    if(!this->isVisible()){
+        show();
+    }
     disconnect(focusTimer,SIGNAL(timeout()),this,SLOT(s_focus_Out()));
     delete hideTimer;
     hideTimer = nullptr;
@@ -107,13 +143,10 @@ void my_Items::s_pressAnimation()
     if(press_animationStep) {
         press_animationStep--;
         if(press_animationStep >= 9) {
-            //qDebug() << "as";
             this->setRotation(this->rotation()+2);
         } else if (press_animationStep >= 3){
-            //qDebug() << "ps";
             this->setRotation(this->rotation()-2);
         } else {
-            //qDebug() << "as";
             this->setRotation(this->rotation()+2);
         }
     } else {
@@ -133,17 +166,22 @@ void my_Items::start_press_Animation()
 void my_Items::s_openAnimation()
 {
     if(openAnimationStep == 0){
-        focusIn();
+        //focusIn();
+        hide();
         setPos(poz);
         open_animationTimer.stop();
         disconnect(&press_animationTimer,SIGNAL(timeout()),this,SLOT(s_openAnimation()));
-        qDebug() << "timer stop & disconnect";
+       #ifdef DEF_DEBUG
+        qDebug() << "s_openAnimation(): timer stop & disconnect";
+       #endif
     } else if(openAnimationStep > 0){
         int rozdiel = pixmap().width()-(pixmap().width()/openAnimationStep);
         setPixmap(pixmap().scaled(openAnimationStep*pixmap().width()/4,pixmap().height(),Qt::IgnoreAspectRatio));
         setPos(static_cast<qreal>(this->x()+rozdiel/2),this->y());
         openAnimationStep--;
-        qDebug() << "openAnimationStep--; s_openAnimation";
+       #ifdef DEF_DEBUG
+        qDebug() << "s_openAnimation(): openAnimationStep--; s_openAnimation";
+       #endif
     }
 }
 
@@ -168,4 +206,14 @@ void my_Items::setHodnota(int value)
 void my_Items::setPath_ON(const QString &value)
 {
     path_ON = value;
+}
+
+void my_Items::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+{
+    painter->drawPixmap(QPointF(), pixmap());
+}
+
+QRectF my_Items::boundingRect() const
+{
+    return QRectF( QPointF(0, 0), pixmap().size());
 }

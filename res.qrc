@@ -72,6 +72,9 @@
         <file>games/utils/textur/smajlik.gif</file>
         <file>games/utils/textur/sipka.png</file>
         <file>games/utils/textur/potvrdenie.png</file>
+        <file>games/utils/textur/Matko_postavicka.png</file>
+        <file>games/utils/textur/answer_wrong.png</file>
+        <file>games/utils/textur/answer_correct.png</file>
     </qresource>
     <qresource prefix="/game/Coin">
         <file>games/G_Zab_Mario_coin/textur/bg1.jpg</file>

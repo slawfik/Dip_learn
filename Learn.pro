@@ -1,4 +1,4 @@
-    QT       += core gui serialport
+    QT       += core gui serialport widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,7 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    games/G_MaOS_RocneObdobia/pexesopole.cpp \
+    games/G_MaOS_RocneObdobia/pexeso_items.cpp \
     games/G_MaOS_RocneObdobia/rocne_obdobia.cpp \
     games/G_PaP_CoJeMensie/my_item.cpp \
     games/G_PaP_CoJeMensie/vecie_mensie.cpp \
@@ -37,7 +37,7 @@ SOURCES += \
     src/dialog.cpp
 
 HEADERS += \
-    games/G_MaOS_RocneObdobia/pexesopole.h \
+    games/G_MaOS_RocneObdobia/pexeso_items.h \
     games/G_MaOS_RocneObdobia/rocne_obdobia.h \
     games/G_PaP_CoJeMensie/my_item.h \
     games/G_PaP_CoJeMensie/vecie_mensie.h \

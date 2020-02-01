@@ -22,7 +22,7 @@ QGraphicsPixmapItem *My_scenes::get_napoveda()
 
     QFont titleFont(FONT_IN_GAME,20);
 
-    text1->setPlainText("Sípkami ");
+    text1->setPlainText("Šípkami ");
     text1->setFont(titleFont);
     text1->setPos(WIDTH_SCREAN/4,13*(HIGHT_SCREAN/14));
 
