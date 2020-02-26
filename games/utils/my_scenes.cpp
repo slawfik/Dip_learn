@@ -36,12 +36,39 @@ QGraphicsPixmapItem *My_scenes::get_napoveda()
     text2->setFont(titleFont);
     text2->setPos(WIDTH_SCREAN/4+230,13*(HIGHT_SCREAN/14));
 
-    potvrenie->setPixmap(QPixmap(":/game/score/games/utils/textur/potvrdenie.png").scaled(40,40,Qt::IgnoreAspectRatio));
-    potvrenie->setPos(WIDTH_SCREAN/4+420,13*(HIGHT_SCREAN/14));
+    potvrenie->setPixmap(QPixmap(":/game/score/games/utils/textur/xx.png").scaled(50,50,Qt::IgnoreAspectRatio));
+    potvrenie->setPos(WIDTH_SCREAN/4+415,13*(HIGHT_SCREAN/14-1));
 
     text3->setPlainText(" potvrď výber.");
     text3->setFont(titleFont);
     text3->setPos(WIDTH_SCREAN/4+470,13*(HIGHT_SCREAN/14));
+
+    return parentItem;
+}
+
+QGraphicsPixmapItem *My_scenes::get_infoWindow_with_Picture(QString infoString, QString pixmap_path)
+{
+    QGraphicsPixmapItem* parentItem = new QGraphicsPixmapItem();
+
+    QGraphicsRectItem* panel = new QGraphicsRectItem(WIDTH_SCREAN/2-300,HIGHT_SCREAN/2-200,600,400,parentItem);
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::darkGray);
+    panel->setBrush(brush);
+    panel->setOpacity(0.6);
+
+    if(pixmap_path != "_") {
+        QGraphicsPixmapItem* postavicka = new QGraphicsPixmapItem(parentItem);
+        postavicka->setPixmap(QPixmap(pixmap_path).scaled(150,250));
+        postavicka->setPos(QPointF(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-60));
+    }
+    QGraphicsTextItem* text1 = new QGraphicsTextItem(parentItem);
+
+    QFont titleFont(FONT_IN_GAME,FONT_GAME_SIZE1);
+    text1->setPlainText(infoString);
+    text1->setFont(titleFont);
+    text1->setPos(WIDTH_SCREAN/2-250,HIGHT_SCREAN/2-200);
+    text1->setTextWidth(500);
 
     return parentItem;
 }

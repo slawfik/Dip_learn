@@ -1,6 +1,7 @@
 #include "vecie_mensie.h"
 #include "../../settings.h"
 #include "../utils/my_button.h"
+#include "../utils/my_scenes.h"
 #include <QGraphicsItem>
 #include <QDebug>
 #include <QMovie>
@@ -59,11 +60,11 @@ void Vecie_mensie::set_random_Round()
     pomL = pomL== 0 ? 7 : pomL;
     int pomR = pomL;
     QString path;
-  #ifdef DEBUG
+  #ifdef DEF_DEBUG
     qDebug() << "focusItems_size= " << QString::number(focusedItems.size());
   #endif
     if(focusedItems.size()) {
-      #ifdef DEBUG
+      #ifdef DEF_DEBUG
         qDebug() << "delete old items " << QString::number(focusedItems.size());
       #endif
         scene->removeItem(focusedItems.operator[](0));
@@ -159,10 +160,12 @@ void Vecie_mensie::set_Texts_for_scene()
     scene->addItem(titleText);
 
     /*__set napoveda text__*/
-    QGraphicsTextItem* napoveda = new QGraphicsTextItem(QString("Šípkami označ a potvrď čo je v reálnom živote menšie."));
+    QGraphicsTextItem* napoveda = new QGraphicsTextItem(QString("Vyber čo je v reálnom živote menšie."));
     napoveda->setFont(QFont("Farm to Market Fancy",24));
     napoveda->setPos(WIDTH_SCREAN/2 - napoveda->boundingRect().width()/2,HIGHT_SCREAN- 150);
     scene->addItem(napoveda);
+
+    scene->addItem(My_scenes::get_napoveda());
 }
 
 void Vecie_mensie::restart_Game()
@@ -192,7 +195,7 @@ void Vecie_mensie::my_ItemPressSlot(My_item* obj)
         body++;
     }
 
-  #ifdef DEBUG
+  #ifdef DEF_DEBUG
     qDebug() << "Round number: " << QString::number(round_number);
     qDebug() << "Signal pressed from" << obj->path_ON << " object!";
   #endif

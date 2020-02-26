@@ -25,6 +25,8 @@
         <file>images/Zab_peniazky_ON.png</file>
         <file>images/MaOS_rocneObdob_OFF.png</file>
         <file>images/MaOS_rocneObdob_ON.png</file>
+        <file>images/Mat_velkosti_OFF.png</file>
+        <file>images/Mat_velkosti_ON.png</file>
     </qresource>
     <qresource prefix="/game/tiene">
         <file>games/G_MaOS_tiene/textur/zajacik.png</file>
@@ -71,10 +73,18 @@
         <file>games/utils/textur/hviezdicky2.gif</file>
         <file>games/utils/textur/smajlik.gif</file>
         <file>games/utils/textur/sipka.png</file>
-        <file>games/utils/textur/potvrdenie.png</file>
         <file>games/utils/textur/Matko_postavicka.png</file>
         <file>games/utils/textur/answer_wrong.png</file>
         <file>games/utils/textur/answer_correct.png</file>
+        <file>games/utils/textur/ss.png</file>
+        <file>games/utils/textur/tt.png</file>
+        <file>games/utils/textur/oo.png</file>
+        <file>games/utils/textur/xx.png</file>
+        <file>games/utils/textur/x.png</file>
+        <file>games/utils/textur/cursor10.png</file>
+        <file>games/utils/textur/cursor11.png</file>
+        <file>games/utils/textur/cursor12.png</file>
+        <file>games/utils/textur/cursor13.png</file>
     </qresource>
     <qresource prefix="/game/Coin">
         <file>games/G_Zab_Mario_coin/textur/bg1.jpg</file>
@@ -111,10 +121,21 @@
         <file>games/G_MaOS_RocneObdobia/textur/5_ON.png</file>
         <file>games/G_MaOS_RocneObdobia/textur/7_ON.png</file>
         <file>games/G_MaOS_RocneObdobia/textur/6_ON.png</file>
-        <file>games/G_MaOS_RocneObdobia/textur/3.jpg</file>
-        <file>games/G_MaOS_RocneObdobia/textur/2.jpg</file>
-        <file>games/G_MaOS_RocneObdobia/textur/4.jpg</file>
-        <file>games/G_MaOS_RocneObdobia/textur/1.jpg</file>
         <file>games/G_MaOS_RocneObdobia/textur/zadnaStrana_ON.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/2.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/4.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/3.png</file>
+        <file>games/G_MaOS_RocneObdobia/textur/1.png</file>
+    </qresource>
+    <qresource prefix="/game/vecMen_ulohy">
+        <file>games/G_Mat_VecsiMensi/textur/1.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/2.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/3.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/point.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/femalePerson_fall.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/s1.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/s2.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/s3.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/s4.png</file>
     </qresource>
 </RCC>

@@ -11,7 +11,7 @@
 #include <QSignalTransition>
 #include <QParallelAnimationGroup>
 
-#define DEF_DEBUG
+//#define DEF_DEBUG
 
 Rocne_obdobia::Rocne_obdobia(QWidget *parent)
 {
@@ -31,6 +31,7 @@ Rocne_obdobia::Rocne_obdobia(QWidget *parent)
     timer_answer = new QTimer();
     timer_answer->setSingleShot(true);
 
+    my_Items::generateRandomNumberWithoutRepetition(randomSett,16,0,16);
     startFirstPart_pexeso();
 
     /*State init*/
@@ -58,8 +59,6 @@ Rocne_obdobia::Rocne_obdobia(QWidget *parent)
     scoreText_Item->setFont(titleFont);
     scoreText_Item->setPos(WIDTH_SCREAN-100 - scoreText_Item->boundingRect().width()/2,HIGHT_SCREAN-100);
     scene->addItem(scoreText_Item);
-
-    my_Items::generateRandomNumberWithoutRepetition(randomSett,16,1,17);
 }
 
 Rocne_obdobia::~Rocne_obdobia()
@@ -101,39 +100,44 @@ void Rocne_obdobia::startFirstPart_pexeso()
     pexeso_Items* item;
     my_Items* my_it;
     QSize velkost(110,100);
-    QString textura ,texturaON,zadnaStrana = ":/game/rokObdobia/games/G_MaOS_RocneObdobia/textur/zadnaStrana.png";
+    QString textura ,zadnaStrana = ":/game/rokObdobia/games/G_MaOS_RocneObdobia/textur/zadnaStrana.png";
     int hodnota = 0;
 
     //set karticky
     for(int i = 0;i<16;i++) {       //hodnoty suborov sa rovnaju s nazvami s
         hodnota = i < 8 ? i : i-8;
-        if (hodnota<4) {
-            textura = ":/game/rokObdobia/games/G_MaOS_RocneObdobia/textur/" + QString::number(hodnota+1) + ".jpg";
-            QPixmap pix(textura);
-            item = new pexeso_Items(pix,textura,textura,velkost,hodnota);
-        } else {
-            textura = ":/game/rokObdobia/games/G_MaOS_RocneObdobia/textur/" + QString::number(hodnota+1) + ".png";
-            texturaON = ":/game/rokObdobia/games/G_MaOS_RocneObdobia/textur/" + QString::number(hodnota+1) + "_ON.png";
-            QPixmap pix(textura);
-            item = new pexeso_Items(pix,textura,texturaON,velkost,hodnota);
-        }
+
+        textura = ":/game/rokObdobia/games/G_MaOS_RocneObdobia/textur/" + QString::number(hodnota+1) + ".png";
+        QPixmap pix(textura);
+        item = new pexeso_Items(pix,textura,textura,velkost,hodnota);
+
         //item->hide();
-        item->setPos(points_pexeso[i]);
+        item->setPos(points_pexeso[randomSett[i]]);
         hracieKarty.push_back(item);
         scene->addItem(item);
 
-        my_it = new my_Items(points_pexeso[i],zadnaStrana,velkost,hodnota);
+        if(randomSett[i]<4){
+            cf_coll=0;
+            cf_row=randomSett[i];
+        } else if(randomSett[i]<8 && randomSett[i]>3){
+            cf_coll=1;
+            cf_row=randomSett[i]-4;
+        } else if(randomSett[i]<12 && randomSett[i]>7){
+            cf_coll=2;
+            cf_row=randomSett[i]-8;
+        } else if(randomSett[i]<16 && randomSett[i]>11){
+            cf_coll=3;
+            cf_row=randomSett[i]-12;
+        }
+        my_it = new my_Items(points_pexeso[randomSett[i]],zadnaStrana,velkost,hodnota);
+        my_it->setZValue(5);
         connect(my_it,SIGNAL(pressed(my_Items*)),this,SLOT(s_click_on_Card(my_Items*)));
         hracieKarty_back[cf_row][cf_coll] = my_it;
         scene->addItem(my_it);
-
-        cf_row++;
-        if(cf_row == 4){
-            cf_coll++;
-            cf_row = 0;
-        }
     }
-
+/*    //zoradenie v hracich kartach
+    for(int i = 0;i<16;i++) {
+    }*/
     //set init focus
     changeFocus();
 
@@ -156,7 +160,7 @@ void Rocne_obdobia::initStates()
 
     for(int i = 0;i<8;i++) {       //hodnoty suborov sa rovnaju s nazvami s
         if (randomSett[i]<5) {
-            textura = ":/game/rokObdobia/games/G_MaOS_RocneObdobia/textur/" + QString::number(randomSett[i]) + ".jpg";
+            textura = ":/game/rokObdobia/games/G_MaOS_RocneObdobia/textur/" + QString::number(randomSett[i]) + ".png";
             QPixmap pix(textura);
             item = new pexeso_Items(pix,textura,textura,velkost,randomSett[i]);
             item->setTransformationMode(Qt::SmoothTransformation);
@@ -284,6 +288,26 @@ void Rocne_obdobia::initStates()
         state23->assignProperty(hracieKarty.at(i), "opacity", qreal(1));
         state24->assignProperty(hracieKarty.at(i), "pos",innitPoint[i+4]);
         state24->assignProperty(hracieKarty.at(i), "opacity", qreal(1));
+    }
+
+    for (int i = 0;i<4;i++) {
+        QPoint p = innitPoint[i+4];
+        p.setY(p.y()+140);
+        p.setX(p.x()+55);
+        switch (hracieKarty.at(i)->getHodnota()) {
+            case 1:
+                scene->addItem(My_button::show_own_TitleText("Jar",p,FONT_GAME_SIZE2,false));
+                break;
+            case 2:
+                scene->addItem(My_button::show_own_TitleText("Jeseň",p,FONT_GAME_SIZE2,false));
+                break;
+            case 3:
+                scene->addItem(My_button::show_own_TitleText("Leto",p,FONT_GAME_SIZE2,false));
+                break;
+            case 4:
+                scene->addItem(My_button::show_own_TitleText("Zima",p,FONT_GAME_SIZE2,false));
+                break;
+        }
     }
 
     QParallelAnimationGroup *group = new QParallelAnimationGroup();

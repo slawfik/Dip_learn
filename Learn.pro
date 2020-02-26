@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     games/G_MaOS_RocneObdobia/pexeso_items.cpp \
     games/G_MaOS_RocneObdobia/rocne_obdobia.cpp \
+    games/G_Mat_VecsiMensi/vecmen_ulohy.cpp \
     games/G_PaP_CoJeMensie/my_item.cpp \
     games/G_PaP_CoJeMensie/vecie_mensie.cpp \
     games/G_MaOS_tiene/animal.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     games/G_Zab_Mario_coin/coin.cpp \
     games/G_Zab_Mario_coin/hrac.cpp \
     games/G_Zab_Mario_coin/mario_coin.cpp \
+    games/utils/my_animation_items.cpp \
     games/utils/my_button.cpp \
     games/utils/my_items.cpp \
     games/utils/my_scenes.cpp \
@@ -39,6 +41,7 @@ SOURCES += \
 HEADERS += \
     games/G_MaOS_RocneObdobia/pexeso_items.h \
     games/G_MaOS_RocneObdobia/rocne_obdobia.h \
+    games/G_Mat_VecsiMensi/vecmen_ulohy.h \
     games/G_PaP_CoJeMensie/my_item.h \
     games/G_PaP_CoJeMensie/vecie_mensie.h \
     games/G_MaOS_tiene/animal.h \
@@ -48,6 +51,7 @@ HEADERS += \
     games/G_Zab_Mario_coin/coin.h \
     games/G_Zab_Mario_coin/hrac.h \
     games/G_Zab_Mario_coin/mario_coin.h \
+    games/utils/my_animation_items.h \
     games/utils/my_button.h \
     games/utils/my_items.h \
     games/utils/my_scenes.h \

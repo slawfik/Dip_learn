@@ -22,6 +22,34 @@ My_button::My_button(QString name, QGraphicsItem *parent): QGraphicsRectItem(par
     setAcceptHoverEvents(true);
 }
 
+My_button::My_button(qreal x,qreal y,qreal width,qreal height,QColor color ,QObject *parent)
+{
+    setParent(parent);
+    // draw the rect
+    setRect(x,y,width,height);
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(color);
+    setBrush(brush);
+}
+
+My_button::My_button(QString pa_text, qreal x, qreal y, qreal width, qreal height, QColor color, QObject *parent)
+{
+    setParent(parent);
+
+    setRect(x,y,width,height);
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(color);
+    setBrush(brush);
+
+    // draw the text
+    text = new QGraphicsTextItem(pa_text,this);
+    int xPos = static_cast<int>( rect().width()/2 - text->boundingRect().width()/2);
+    int yPos = static_cast<int>( rect().height()/2 - text->boundingRect().height()/2);
+    text->setPos(xPos,yPos);
+}
+
 void My_button::mousePressEvent(QGraphicsSceneMouseEvent *event){
     Q_UNUSED(event)
     emit clicked();
@@ -57,6 +85,17 @@ QGraphicsRectItem *My_button::drawPanel(int x, int y, int width, int height, QCo
     panel->setBrush(brush);
     panel->setOpacity(opacity);
     return panel;
+}
+
+QGraphicsEllipseItem *My_button::drowElipse(qreal x, qreal y, qreal width, qreal height, QColor color, double opacity)
+{
+    QGraphicsEllipseItem* elipse = new QGraphicsEllipseItem(x,y,width,height);
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(color);
+    elipse->setBrush(brush);
+    elipse->setOpacity(opacity);
+    return elipse;
 }
 
 QLabel *My_button::showGif(QMovie *movie,QString pixMap,QPoint point)

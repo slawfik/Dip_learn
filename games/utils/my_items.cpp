@@ -29,9 +29,11 @@ bool my_Items::generateRandomNumberWithoutRepetition(int *arrayGenerated,int poc
         } while (check == false);
     }
 
+    #ifdef DEF_DEBUG
     for(int i =0;i<pocet;i++){
         qDebug() << "int = " << QString::number(arrayGenerated[i]);
     }
+    #endif
     return true;
 }
 
@@ -116,6 +118,22 @@ void my_Items::hideWIth_timeout(int mSec)
 
     connect(hideTimer,SIGNAL(timeout()),this,SLOT(s_hide_item()));
     hideTimer->start();
+}
+
+void my_Items::change_Pixmap_Colour(QColor z, QColor na)
+{
+    QImage image = pixmap().toImage();
+    for(int y = 0; y < image.height(); y++)
+    {
+      for(int x= 0; x < image.width(); x++)
+      {
+          if(image.pixelColor(x,y) == z){
+            na.setAlpha(image.pixelColor(x,y).alpha());
+            image.setPixelColor(x,y,na);
+          }
+      }
+    }
+    setPixmap(QPixmap::fromImage(image));
 }
 
 void my_Items::s_focus_Out()

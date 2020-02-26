@@ -3,6 +3,10 @@
 #include <QString>
 #include <QGraphicsScene>
 
+//convert 1.png -strip 1.png
+//start debug uncomment
+//#define DEF_DEBUG
+
 //nemozno menej ako 1100
 #define WIDTH_SCREAN 1200   //1200 700
 //nemozno menej ako 700
@@ -26,14 +30,14 @@ static QString stylesheet_site1_1_TIEN = "#btn_1"
                                          "#btn_1:pressed"
                                          "{   border-image: url(:/img/images/MaOS_priradTiene_ON.png); }"
                                          "#btn_1:focus "
-                                         "{   border-image: url(:/img/images/MaOS_priradTiene_OFF.png); }";
+                                         "{   border-image: url(:/img/images/MaOS_priradTiene_ON.png); }";
 static QString stylesheet_site1_2_RocObd = "#btn_2"
                                          "{ border-image: url(:/img/images/MaOS_rocneObdob_OFF.png);"
                                          "border-radius: 15px;}"
                                          "#btn_1:pressed"
                                          "{   border-image: url(:/img/images/MaOS_rocneObdob_ON.png); }"
                                          "#btn_1:focus "
-                                         "{   border-image: url(:/img/images/MaOS_rocneObdob_OFF.png); }";
+                                         "{   border-image: url(:/img/images/MaOS_rocneObdob_ON.png); }";
 static QString stylesheet_site2_1_CoJeMen = "#btn_1"
                                          "{ border-image: url(:/img/images/PaP_coJeMensie_OFF.png);"
                                          "border-radius: 15px;}"
@@ -45,9 +49,17 @@ static QString stylesheet_site2_2_NajdiObr = "#btn_2"
                                          "{ border-image: url(:/img/images/PaP_najdiObrazok_OFF.png);"
                                          "border-radius: 15px;}"
                                          "#btn_2:pressed"
-                                         "{   border-image: url(:/img/images/PaP_najdiObrazok_OFF.png); }"
+                                         "{   border-image: url(:/img/images/PaP_najdiObrazok_ON.png); }"
                                          "#btn_2:focus "
-                                         "{   border-image: url(:/img/images/PaP_najdiObrazok_OFF.png); }";
+                                         "{   border-image: url(:/img/images/PaP_najdiObrazok_ON.png); }";
+static QString stylesheet_site3_1_VecMen_ulohy = "#btn_1"
+                                         "{ border-image: url(:/img/images/Mat_velkosti_OFF.png);"
+                                         "border-radius: 15px;}"
+                                         "#btn_1:pressed"
+                                         "{   border-image: url(:/img/images/Mat_velkosti_ON.png); }"
+                                         "#btn_1:focus "
+                                         "{   border-image: url(:/img/images/Mat_velkosti_ON.png); }";
+
 
 static QString stylesheet_site4_1_COIN = "#btn_1"
                                        "{ border-image: url(:/img/images/Zab_peniazky_OFF.png);"

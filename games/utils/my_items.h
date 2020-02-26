@@ -39,6 +39,7 @@ public:
     void setPath_ON(const QString &value);
     void setPath_OFF(const QString &value);
     void hideWIth_timeout(int mSec);
+    void change_Pixmap_Colour(QColor z,QColor na);
 
     //Animation
     void start_press_Animation();

@@ -12,6 +12,7 @@
 #include "games/G_PaP_CoJeMensie/vecie_mensie.h"
 #include "games/G_PaP_NajdiObrazok/najdi_obrazok.h"
 #include "games/G_MaOS_RocneObdobia/rocne_obdobia.h"
+#include "games/G_Mat_VecsiMensi/vecmen_ulohy.h"
 
 //global variable marked extern
 PriradTiene *tien = nullptr;
@@ -19,6 +20,7 @@ Vecie_mensie *vec_men = nullptr;
 Mario_coin *marioCoin = nullptr;
 Najdi_obrazok *najdiObr = nullptr;
 Rocne_obdobia *rocObdob = nullptr;
+VecMen_ulohy *vec_menUlohy = nullptr;
 
 //global variable
 GamesMethod *current_runGame = nullptr;
@@ -53,6 +55,10 @@ Learn_soft::~Learn_soft()
       rocObdob->close();
       delete rocObdob;
     }
+    if (vec_menUlohy){
+        vec_menUlohy->close();
+        delete vec_menUlohy;
+    }
     qDebug() << "delete ui";
     delete ui;
 }
@@ -81,7 +87,9 @@ void Learn_soft::on_btn_1_clicked()
             current_runGame = vec_men;
             break;
         case MAT_3:
-            //mat game1
+            vec_menUlohy = new VecMen_ulohy();
+            vec_menUlohy->show();
+            current_runGame = vec_menUlohy;
             break;
         case ZAB_4:
             marioCoin= new Mario_coin();
@@ -127,7 +135,7 @@ void Learn_soft::on_btn_3_clicked()
     switch (menu) {
         case HOME:
             ui->label_temat->setText("Vyber z nasledujúcich hier:");
-            ui->btn_1->hide();
+            ui->btn_1->setStyleSheet(stylesheet_site3_1_VecMen_ulohy);//tu_
             ui->btn_2->hide();
             ui->btn_3->hide();
             ui->btn_4->setStyleSheet(stylesheet_btn_4_ZPET);

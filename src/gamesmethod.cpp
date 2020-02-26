@@ -48,6 +48,27 @@ void GamesMethod::pressEnter()
   #endif
 }
 
+void GamesMethod::pressTrojuholnik()
+{
+  #ifdef DEBUG
+    qDebug() << "parent pressTrojuholnik method";
+  #endif
+}
+
+void GamesMethod::pressKocka()
+{
+  #ifdef DEBUG
+    qDebug() << "parent pressKocka method";
+  #endif
+}
+
+void GamesMethod::pressGulicka()
+{
+  #ifdef DEBUG
+    qDebug() << "parent pressGulicka method";
+  #endif
+}
+
 void GamesMethod::pressTab()
 {
   #ifdef DEBUG

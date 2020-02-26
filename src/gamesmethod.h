@@ -12,8 +12,11 @@ public:
     virtual void moveDown();
     virtual void moveLeft();
     virtual void moveRight();
-    virtual void pressEnter();
     virtual void pressTab();
+    virtual void pressEnter();
+    virtual void pressTrojuholnik();
+    virtual void pressKocka();
+    virtual void pressGulicka();
 };
 
 #endif // GAMESMETHOD_H

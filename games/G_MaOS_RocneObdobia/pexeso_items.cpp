@@ -1,12 +1,12 @@
 #include "pexeso_items.h"
-#include <QPainter>
+//#include <QPainter>
 
 pexeso_Items::pexeso_Items(QObject *parent) : QObject(parent)
 {
 
 }
 
-pexeso_Items::pexeso_Items(const QPixmap pa_p,QString pixmap_PATH, QSize pa_velkost, const int pa_hodnota, QObject *parent)
+/*pexeso_Items::pexeso_Items(const QPixmap pa_p,QString pixmap_PATH, QSize pa_velkost, const int pa_hodnota, QObject *parent)
     : QObject(parent)  ,QGraphicsPixmapItem(pa_p.scaled(pa_velkost,Qt::IgnoreAspectRatio))
 {
     //setCacheMode(DeviceCoordinateCache);
@@ -16,7 +16,7 @@ pexeso_Items::pexeso_Items(const QPixmap pa_p,QString pixmap_PATH, QSize pa_velk
 
     velkost = pa_velkost;
     setTransformOriginPoint(pixmap().rect().center());
-}
+}*/
 
 pexeso_Items::pexeso_Items(const QPixmap pa_p, const QString pixmap_PATH_OFF, const QString pixmap_PATH_ON, const QSize pa_velkost, const int pa_hodnota, QObject *parent)
     : QObject(parent)  ,QGraphicsPixmapItem(pa_p.scaled(pa_velkost,Qt::IgnoreAspectRatio)) ,path_OFF(pixmap_PATH_OFF) ,path_ON(pixmap_PATH_ON)
