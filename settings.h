@@ -5,13 +5,14 @@
 
 //convert 1.png -strip 1.png
 //start debug uncomment
-//#define DEF_DEBUG
+#define DEF_DEBUG
 
 //nemozno menej ako 1100
 #define WIDTH_SCREAN 1200   //1200 700
 //nemozno menej ako 700
 #define HIGHT_SCREAN 700
 #define MOVE_STEP 20
+#define SPEED 3
 #define FONT_IN_GAME "Farm to Market Fancy"
 #define FONT_GAME_SIZE1 50
 #define FONT_GAME_SIZE2 30
@@ -60,7 +61,6 @@ static QString stylesheet_site3_1_VecMen_ulohy = "#btn_1"
                                          "#btn_1:focus "
                                          "{   border-image: url(:/img/images/Mat_velkosti_ON.png); }";
 
-
 static QString stylesheet_site4_1_COIN = "#btn_1"
                                        "{ border-image: url(:/img/images/Zab_peniazky_OFF.png);"
                                        "border-radius: 15px;}"
@@ -68,6 +68,13 @@ static QString stylesheet_site4_1_COIN = "#btn_1"
                                        "{   border-image: url(:/img/images/Zab_peniazky_ON.png); }"
                                        "#btn_1:focus "
                                        "{   border-image: url(:/img/images/Zab_peniazky_ON.png); }";
+static QString stylesheet_site4_2_Lietadla = "#btn_2"
+                                       "{ border-image: url(:/img/images/Zab_lietadla_OFF.png);"
+                                       "border-radius: 15px;}"
+                                       "#btn_2:pressed"
+                                       "{   border-image: url(:/img/images/Zab_lietadla_ON.png); }"
+                                       "#btn_2:focus "
+                                       "{   border-image: url(:/img/images/Zab_lietadla_ON.png); }";
 static QString stylesheet_btn_4_ZPET = "#btn_4 "
                                "{ border-image: url(:/img/images/Z5_OFF.png);"
                                "border-radius: 15px;}"

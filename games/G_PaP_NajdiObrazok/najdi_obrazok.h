@@ -22,7 +22,6 @@ private:
     QGraphicsScene *scene;
     //my_Items *item;
     QGraphicsTextItem* time_text;
-    QMovie* movie = nullptr;
     QTimer *timer = nullptr;
     QList<my_Items*> l_myItems;
     QList<my_Items*>::iterator l_myItems_iter;

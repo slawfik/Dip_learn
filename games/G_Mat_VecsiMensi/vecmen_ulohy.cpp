@@ -7,6 +7,7 @@
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 #include <qsignaltransition.h>
+#include <QDebug>
 
 VecMen_ulohy::VecMen_ulohy(QWidget *parent)
 {
@@ -25,7 +26,6 @@ VecMen_ulohy::VecMen_ulohy(QWidget *parent)
     kurzor = nullptr;
     setMouseTracking(true);
 
-    srand(time(NULL));
     //init game
     init_game1();
 
@@ -43,6 +43,7 @@ VecMen_ulohy::VecMen_ulohy(QWidget *parent)
     timerForState_3->setSingleShot(true);
 
     pom_timer = new QTimer();
+    pom_timer2 = new QTimer();
 
     initStete_AND_animationObj();
 }
@@ -60,6 +61,7 @@ VecMen_ulohy::~VecMen_ulohy()
     delete timerForState_2;
     delete timerForState_3;
     delete pom_timer;
+    delete pom_timer2;
 }
 
 void VecMen_ulohy::initStete_AND_animationObj()
@@ -83,7 +85,6 @@ void VecMen_ulohy::initStete_AND_animationObj()
 
     //INIT STATE
     machine = new QStateMachine();
-    finalState = new QFinalState();
     for(int i=0;i<8;i++){
         state[i] = new QState();
         machine->addState(state[i]);
@@ -186,8 +187,6 @@ void VecMen_ulohy::initStete_AND_animationObj()
             trans->addAnimation(group);
         }
     }
-    trans = state[8]->addTransition(timerForState_3,&QTimer::timeout,finalState);
-    trans->addAnimation(group);
 
     machine->start();
     timerForState_1->start();
@@ -198,8 +197,11 @@ void VecMen_ulohy::init_game1()
 {
     //init game object
     QPointF poz_e[3];
+    int random[3];
+    my_Items::generateRandomNumberWithoutRepetition(random,3,1,4);
 
-    scene->addItem(My_scenes::get_napoveda());
+    napovedaParent = My_scenes::get_napoveda();
+    scene->addItem(napovedaParent);
 
     titleText = My_button::show_own_TitleText("Porovnaj rebríky podľa výšky a vyber ten najvyšší.",QPoint(WIDTH_SCREAN/2,HIGHT_SCREAN/4-130),FONT_GAME_SIZE1,true,500);
     scene->addItem(titleText);
@@ -207,12 +209,13 @@ void VecMen_ulohy::init_game1()
     for (int i =0; i<3;i++) {
         poz_e[i] = QPointF(((i+1)*WIDTH_SCREAN/4)-100,(HIGHT_SCREAN/4)-50);
 
-        focus_rebrik[i] = My_button::drowElipse(poz_e[i].x(),poz_e[i].y() ,200,450,QColor::fromRgb(53, 228, 234),0.6);
+        focus_rebrik[i] = My_button::drow_Elipse(poz_e[i].x(),poz_e[i].y() ,200,450,QColor::fromRgb(53, 228, 234),0.6);
         scene->addItem(focus_rebrik[i]);
 
         poz_e[i].setX(poz_e[i].x()+40);
         poz_e[i].setY(poz_e[i].y()+50);
-        rebrik_sipky[i] = new my_Items(poz_e[i],":/game/vecMen_ulohy/games/G_Mat_VecsiMensi/textur/"+QString::number(i+1)+".png",QSize(120,350),i+1);
+        rebrik_sipky[i] = new my_Items(poz_e[i],":/game/vecMen_ulohy/games/G_Mat_VecsiMensi/textur/"+QString::number(random[i])+".png",QSize(120,350),random[i]);
+        connect(rebrik_sipky[i],SIGNAL(pressed(my_Items*)),this,SLOT(s_pressRebrik(my_Items*)));
         scene->addItem(rebrik_sipky[i]);
     }
     //init focus rebrik
@@ -230,19 +233,18 @@ void VecMen_ulohy::init_game2()
     titleText->setX(WIDTH_SCREAN/2-titleText->boundingRect().width()/2);
     farba_zadanie=farba_zadanie+10;
 
-    scene->addItem(My_button::drawPanel(WIDTH_SCREAN/2-270,HIGHT_SCREAN/4-50,860,490,QColor(15,85,77),0.7));
+    scene->addItem(My_button::drawPanel(WIDTH_SCREAN/5-100,HIGHT_SCREAN/4-50,(3*WIDTH_SCREAN/5)+200,450,QColor(86, 122, 209),0.7));
 
     QPointF randomMIesta[13];
     initRandomMiesta(randomMIesta);
     int randSipka;
     //sipka vlavo 10, vpravo 11, hore 12, dole 13
-    for (int i = 0;i<13;i++) {//pixmap is null
+    for (int i = 0;i<13;i++) {
         randSipka = (i%4)+10;
         rebrik_sipky[i] = new my_Items(randomMIesta[i],
                                        ":/game/vecMen_ulohy/games/G_Mat_VecsiMensi/textur/s"+QString::number((randSipka%4)+1)
                                        +".png",QSize(80,40),randSipka);
         rebrik_sipky[i]->setTransformOriginPoint(rebrik_sipky[i]->pixmap().rect().center());
-        //musim tu random a viac sipok pridat
         switch (randSipka) {
             case 10:
                 break;
@@ -256,17 +258,29 @@ void VecMen_ulohy::init_game2()
                 rebrik_sipky[i]->setRotation(-90);
                 break;
         }
+        if(randSipka == farba_zadanie){
+            pocet_spiopk_preMalovanie++;
+        }
         connect(rebrik_sipky[i],SIGNAL(pressed(my_Items*)),this,SLOT(s_sipkyPressed(my_Items*)));
         scene->addItem(rebrik_sipky[i]);
     }
 
-    colours_Text = My_button::show_own_TitleText("Vyber správnu farbu!",QPoint(50,HIGHT_SCREAN/2-200),FONT_GAME_SIZE2,false,250);
+    colours_Text = new QGraphicsTextItem();
+    QGraphicsTextItem* it;
+    it = My_button::show_own_TitleText("Hnedá",QPoint(WIDTH_SCREAN/5,HIGHT_SCREAN-90),FONT_GAME_SIZE2,false);
+    it->setParentItem(colours_Text);
+    it = My_button::show_own_TitleText("Zelená",QPoint(2*WIDTH_SCREAN/5,HIGHT_SCREAN-90),FONT_GAME_SIZE2,false);
+    it->setParentItem(colours_Text);
+    it = My_button::show_own_TitleText("Žltá",QPoint(3*WIDTH_SCREAN/5,HIGHT_SCREAN-90),FONT_GAME_SIZE2,false);
+    it->setParentItem(colours_Text);
+    it = My_button::show_own_TitleText("Červená",QPoint(4*WIDTH_SCREAN/5,HIGHT_SCREAN-90),FONT_GAME_SIZE2,false);
+    it->setParentItem(colours_Text);
     scene->addItem(colours_Text);
 
-    colours[0] = new my_Items(QPoint(100,HIGHT_SCREAN/2-90),":/game/score/games/utils/textur/tt.png",QSize(70,70),10);
-    colours[1] = new my_Items(QPoint(100,HIGHT_SCREAN/2+20),":/game/score/games/utils/textur/oo.png",QSize(70,70),11);
-    colours[2] = new my_Items(QPoint(100,HIGHT_SCREAN/2+130),":/game/score/games/utils/textur/ss.png",QSize(70,70),12);
-    colours[3] = new my_Items(QPoint(100,HIGHT_SCREAN/2+240),":/game/score/games/utils/textur/x.png",QSize(70,70),13);
+    colours[0] = new my_Items(QPoint(WIDTH_SCREAN/5-75,HIGHT_SCREAN-100),":/game/score/games/utils/textur/tt.png",QSize(70,70),10);
+    colours[1] = new my_Items(QPoint(2*WIDTH_SCREAN/5-75,HIGHT_SCREAN-100),":/game/score/games/utils/textur/oo.png",QSize(70,70),11);
+    colours[2] = new my_Items(QPoint(3*WIDTH_SCREAN/5-75,HIGHT_SCREAN-100),":/game/score/games/utils/textur/ss.png",QSize(70,70),12);
+    colours[3] = new my_Items(QPoint(4*WIDTH_SCREAN/5-75,HIGHT_SCREAN-100),":/game/score/games/utils/textur/x.png",QSize(70,70),13);
 
     for (int i =0;i<4;i++) {
         scene->addItem(colours[i]);
@@ -274,6 +288,33 @@ void VecMen_ulohy::init_game2()
     }
 
     status = DRUHA_ULOHA_VYBER_FARBU;
+}
+
+void VecMen_ulohy::init_game3()
+{
+    scene->addItem(My_button::showTitleText("Zoraď ježkov od največšieho po najmenšieho:"));
+    scene->addItem(My_scenes::get_napoveda());
+
+    int random[5];
+    my_Items::generateRandomNumberWithoutRepetition(random,5,0,5);
+
+    my_Items *it;
+    for (int i = 0;i<5;i++) {
+        it = new my_Items(QPointF((i+1)*WIDTH_SCREAN/7,600 -(70+(random[i]*20))),":/game/vecMen_ulohy/games/G_Mat_VecsiMensi/textur/jezko_OFF.png",":/game/vecMen_ulohy/games/G_Mat_VecsiMensi/textur/jezko_ON.png",QSize(70+(random[i]*20),70+(random[i]*20)),random[i]);
+        jezko.push_back(it);
+        connect(it,SIGNAL(pressed(my_Items*)),this,SLOT(s_selectJezko(my_Items*)));
+        scene->addItem(it);
+
+        scene->addItem(My_button::show_own_TitleText(QString::number(i+1),QPoint((i+1)*WIDTH_SCREAN/7+25,HIGHT_SCREAN/4+80),FONT_GAME_SIZE2,false));
+        it = new my_Items(QPointF((i+1)*WIDTH_SCREAN/7,HIGHT_SCREAN/3-(130-(i*12))),":/game/vecMen_ulohy/games/G_Mat_VecsiMensi/textur/elipse.png",QSize(100-(i*10),150-(i*12)),4-i);
+        it->setOpacity(0.7);
+        connect(it,SIGNAL(pressed(my_Items*)),this,SLOT(s_pressOnPoint_Jezko(my_Items*)));
+        scene->addItem(it);
+    }
+
+    currentJezkoFocus = jezko.begin();
+    jezko.first()->focusIn();
+
 }
 
 void VecMen_ulohy::vymalujSipku()
@@ -284,15 +325,19 @@ void VecMen_ulohy::vymalujSipku()
             my_Items *it = dynamic_cast<my_Items*>(colliding_items.operator[](i));
             if(colour_ID == farba_zadanie && it->getHodnota() == farba_zadanie && colour_ID==10){
                 it->change_Pixmap_Colour(QColor(255,255,255),QColor(169,105,0));
+                pocet_spiopk_preMalovanie--;
                 status = DRUHA_ULOHA_VYBER_SIPKY;
             } else if(colour_ID == farba_zadanie && it->getHodnota() == farba_zadanie && colour_ID == 11){
                 it->change_Pixmap_Colour(QColor(255,255,255),QColor(0,255,0));
+                pocet_spiopk_preMalovanie--;
                 status = DRUHA_ULOHA_VYBER_SIPKY;
             } else if(colour_ID == farba_zadanie && it->getHodnota() == farba_zadanie && colour_ID == 12){
                 it->change_Pixmap_Colour(QColor(255,255,255),QColor(255,255,0));
+                pocet_spiopk_preMalovanie--;
                 status = DRUHA_ULOHA_VYBER_SIPKY;
             } else if(colour_ID == farba_zadanie && it->getHodnota() == farba_zadanie && colour_ID ==  13){
                 it->change_Pixmap_Colour(QColor(255,255,255),QColor(255,0,0));
+                pocet_spiopk_preMalovanie--;
                 status = DRUHA_ULOHA_VYBER_SIPKY;
             } else {
                 answer_pixmap = My_button::showImage(QPoint(WIDTH_SCREAN/2,HIGHT_SCREAN/2-60),":/game/score/games/utils/textur/answer_wrong.png",QSize(100,100));
@@ -302,11 +347,24 @@ void VecMen_ulohy::vymalujSipku()
                 connect(pom_timer,SIGNAL(timeout()),this,SLOT(s_clear_answer_Uloha2()));
                 pom_timer->start();
             }
+
+            if(!pocet_spiopk_preMalovanie) {
+                status = WAIT;
+                kurzor = nullptr;
+                animationTitleText->setPlainText("Výborne už len posledná úloha.");
+                animationTitleText->setX(WIDTH_SCREAN/2-animationTitleText->boundingRect().width() /2);
+                timerForState_1->start();
+                timerForState_2->start();
+                pom_timer2->setInterval(8000);
+                pom_timer2->setSingleShot(true);
+                connect(pom_timer2,SIGNAL(timeout()),this,SLOT(s_start_TretiaUloha()));
+                pom_timer2->start();
+            }
         }
     }
 }
 
-void VecMen_ulohy::init_Cursor(const QString textura)
+void VecMen_ulohy::init_Cursor(const QString textura,const QSize velkost)
 {
     if(kurzor) {
         scene->removeItem(kurzor);
@@ -315,7 +373,7 @@ void VecMen_ulohy::init_Cursor(const QString textura)
 
     kurzor = new QGraphicsPixmapItem(textura);
     QPixmap aa = kurzor->pixmap();
-    kurzor->setPixmap(aa.scaled(35,35));
+    kurzor->setPixmap(aa.scaled(velkost));
     kurzor->setPos(WIDTH_SCREAN/2,HIGHT_SCREAN/2);
     scene->addItem(kurzor);
 }
@@ -323,16 +381,16 @@ void VecMen_ulohy::init_Cursor(const QString textura)
 void VecMen_ulohy::initRandomMiesta(QPointF *random_miesta)
 {
     //WIDTH_SCREAN/2-270,HIGHT_SCREAN/4-50,860,490
-    random_miesta[0].setX(WIDTH_SCREAN/2-200);
+    random_miesta[0].setX(WIDTH_SCREAN/5-50);
     random_miesta[0].setY(HIGHT_SCREAN/4);
 
     random_miesta[1].setX(WIDTH_SCREAN/2-150);
     random_miesta[1].setY(HIGHT_SCREAN/4+70);
 
-    random_miesta[2].setX(WIDTH_SCREAN/2-180);
-    random_miesta[2].setY(3*HIGHT_SCREAN/4);
+    random_miesta[2].setX(WIDTH_SCREAN/5+5);
+    random_miesta[2].setY(2*HIGHT_SCREAN/4+70);
 
-    random_miesta[3].setX(WIDTH_SCREAN/2-50);
+    random_miesta[3].setX(WIDTH_SCREAN/5+40);
     random_miesta[3].setY(HIGHT_SCREAN/4+120);
 
     random_miesta[4].setX(WIDTH_SCREAN/2+40);
@@ -347,17 +405,17 @@ void VecMen_ulohy::initRandomMiesta(QPointF *random_miesta)
     random_miesta[7].setX(WIDTH_SCREAN/2+300);
     random_miesta[7].setY(HIGHT_SCREAN/4+160);
 
-    random_miesta[8].setX(WIDTH_SCREAN/2+320);
-    random_miesta[8].setY(HIGHT_SCREAN/4+300);
+    random_miesta[8].setX(WIDTH_SCREAN/2+280);
+    random_miesta[8].setY(HIGHT_SCREAN/4);
 
-    random_miesta[9].setX(WIDTH_SCREAN/2+390);
-    random_miesta[9].setY(HIGHT_SCREAN/4+35);
+    random_miesta[9].setX(WIDTH_SCREAN/2-50);
+    random_miesta[9].setY(HIGHT_SCREAN/4+70);
 
-    random_miesta[10].setX(WIDTH_SCREAN/2-200);
-    random_miesta[10].setY(HIGHT_SCREAN/2+10);
+    random_miesta[10].setX(WIDTH_SCREAN/2);
+    random_miesta[10].setY(HIGHT_SCREAN/2+100);
 
-    random_miesta[11].setX(WIDTH_SCREAN/2+450);
-    random_miesta[11].setY(HIGHT_SCREAN/2+10);
+    random_miesta[11].setX(WIDTH_SCREAN/2-100);//
+    random_miesta[11].setY(HIGHT_SCREAN/2+130);
 
     random_miesta[12].setX(WIDTH_SCREAN/2+100);
     random_miesta[12].setY(HIGHT_SCREAN/4+220);
@@ -365,34 +423,59 @@ void VecMen_ulohy::initRandomMiesta(QPointF *random_miesta)
 
 void VecMen_ulohy::changeFocus_Right()
 {
-    focus_rebrik[currentFocus_rebrik]->hide();
-    currentFocus_rebrik++;
-    if(currentFocus_rebrik > 2)
-        currentFocus_rebrik = 0;
-    focus_rebrik[currentFocus_rebrik]->show();
+    if(status == PRVA_ULOHA)    {
+        focus_rebrik[currentFocus_object]->hide();
+        currentFocus_object++;
+        if(currentFocus_object > 2)
+            currentFocus_object = 0;
+        focus_rebrik[currentFocus_object]->show();
+    } else if (status == TRETIA_ULOHA_SELECT || status == TRETIA_ULOHA_FIND)  {
+        currentJezkoFocus.operator*()->focusOut();
+        currentJezkoFocus++;
+        if(currentJezkoFocus>jezko.end()-1){
+            currentJezkoFocus = jezko.begin();
+        }
+        currentJezkoFocus.operator*()->focusIn();
+    }
 }
 
 void VecMen_ulohy::changeFocus_Left()
 {
-    focus_rebrik[currentFocus_rebrik]->hide();
-    currentFocus_rebrik--;
-    if(currentFocus_rebrik < 0)
-        currentFocus_rebrik = 2;
-    focus_rebrik[currentFocus_rebrik]->show();
+    if(status == PRVA_ULOHA)    {
+        focus_rebrik[currentFocus_object]->hide();
+        currentFocus_object--;
+        if(currentFocus_object < 0)
+            currentFocus_object = 2;
+        focus_rebrik[currentFocus_object]->show();
+    } else if(status == TRETIA_ULOHA_SELECT)   {
+        currentJezkoFocus.operator*()->focusOut();
+        currentJezkoFocus--;
+        if(currentJezkoFocus<jezko.begin()){
+            currentJezkoFocus = jezko.end()-1;
+        }
+        currentJezkoFocus.operator*()->focusIn();
+    }
 }
 
 
 void VecMen_ulohy::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Left)
-        changeFocus_Left();
+        moveLeft();
     else if (event->key() == Qt::Key_Right)
-        changeFocus_Right();
+        moveRight();
     else if (event->key() == Qt::Key_Enter)
         pressEnter();
     else if (event->key() == Qt::Key_Tab){
 
-    }
+    } else if (event->key() == Qt::Key_K)
+        pressTrojuholnik();
+    else if(event->key() == Qt::Key_M)
+        pressKocka();
+    else if (event->key() == Qt::Key_Up)
+        moveUp();
+    else if (event->key() == Qt::Key_Down)
+        moveDown();
 }
 
 void VecMen_ulohy::mouseMoveEvent(QMouseEvent *event)
@@ -404,35 +487,59 @@ void VecMen_ulohy::mouseMoveEvent(QMouseEvent *event)
 
 void VecMen_ulohy::moveLeft()
 {
-    if(status == PRVA_ULOHA)
+    if (kurzor && (kurzor->x()-MOVE_STEP) > 0){
+        kurzor->setX(kurzor->x()-MOVE_STEP);
+    }
+    if(status == PRVA_ULOHA || status == TRETIA_ULOHA_SELECT)
         changeFocus_Left();
 }
 
 void VecMen_ulohy::moveRight()
 {
-    if(status == PRVA_ULOHA)
+    if (kurzor && (kurzor->x()+MOVE_STEP) < WIDTH_SCREAN){
+        kurzor->setX(kurzor->x()+MOVE_STEP);
+    }
+    if(status == PRVA_ULOHA || status == TRETIA_ULOHA_SELECT)
         changeFocus_Right();
+}
+
+void VecMen_ulohy::moveUp()
+{
+    if (kurzor && (kurzor->y()-MOVE_STEP) > 0){
+        kurzor->setY(kurzor->y()-MOVE_STEP);
+    }
+}
+
+void VecMen_ulohy::moveDown()
+{
+    if (kurzor && (kurzor->y()+MOVE_STEP) < HIGHT_SCREAN){
+        kurzor->setY(kurzor->y()+MOVE_STEP);
+    }
 }
 
 void VecMen_ulohy::pressEnter()
 {
     switch(status) {
+        case WAIT:
+            break;
         case PRVA_ULOHA:
             status = WAIT;
-            if(rebrik_sipky[currentFocus_rebrik]->getHodnota() == 1)  {
-                answer_pixmap = My_button::showImage(QPoint(WIDTH_SCREAN/2,HIGHT_SCREAN/2-60),":/game/score/games/utils/textur/answer_correct.png",QSize(150,250));
+            if(rebrik_sipky[currentFocus_object]->getHodnota() == 1)  {
+                QPoint pos(static_cast<int>(rebrik_sipky[currentFocus_object]->x()+70),static_cast<int>(rebrik_sipky[currentFocus_object]->y()+100));
+                answer_pixmap = My_button::showImage(pos,":/game/score/games/utils/textur/answer_correct.png",QSize(150,250));
                 scene->addItem(answer_pixmap);
-                pom_timer->setInterval(2200);
-                pom_timer->setSingleShot(true);
-                connect(pom_timer,SIGNAL(timeout()),this,SLOT(s_start_DruhaUloha()));
-                pom_timer->start();
+                pom_timer2->setInterval(7000);
+                pom_timer2->setSingleShot(true);
+                connect(pom_timer2,SIGNAL(timeout()),this,SLOT(s_start_DruhaUloha()));
+                pom_timer2->start();
 
                 animationTitleText->setPlainText("A poďme na druhú úlohu.");
                 timerForState_1->start();
                 timerForState_2->start();
                 timerForState_3->start();
             } else {
-                answer_pixmap = My_button::showImage(QPoint(WIDTH_SCREAN/2,HIGHT_SCREAN/2-60),":/game/score/games/utils/textur/answer_wrong.png",QSize(150,250));
+                QPoint pos(static_cast<int>(rebrik_sipky[currentFocus_object]->x()+70),static_cast<int>(rebrik_sipky[currentFocus_object]->y()+100));
+                answer_pixmap = My_button::showImage(pos,":/game/score/games/utils/textur/answer_wrong.png",QSize(150,250));
                 scene->addItem(answer_pixmap);
                 pom_timer->setInterval(2200);
                 pom_timer->setSingleShot(true);
@@ -441,22 +548,34 @@ void VecMen_ulohy::pressEnter()
             }
             break;
         case DRUHA_ULOHA_VYBER_FARBU:
+            s_takeColours(rebrik_sipky[4]);//x vyberie cervenu
             break;
         case DRUHA_ULOHA_VYBER_SIPKY:
             status = WAIT;
             vymalujSipku();
             break;
-        case TRETIA_ULOHA:
+        case TRETIA_ULOHA_SELECT:
+            init_Cursor(":/game/vecMen_ulohy/games/G_Mat_VecsiMensi/textur/jezko_OFF.png",currentJezkoFocus.operator*()->velkost);
+            status = TRETIA_ULOHA_FIND;
             break;
-        default:
+        case TRETIA_ULOHA_FIND:
+            QList<QGraphicsItem *> colliding_items = kurzor->collidingItems();
+            for (int i = 0;i < colliding_items.size(); ++i){
+                if (typeid(*(colliding_items[i])) == typeid(my_Items)){
+                    my_Items *it = dynamic_cast<my_Items*>(colliding_items.operator[](i));
+                    if(it->getHodnota() == currentJezkoFocus.operator*()->getHodnota()) {
+                        s_pressOnPoint_Jezko(it);
+                        break;
+                    }
+                }
+            }
             break;
     }
-
 }
 
 void VecMen_ulohy::s_start_DruhaUloha()
 {
-    disconnect(pom_timer,SIGNAL(timeout()),this,SLOT(s_start_DruhaUloha()));
+    disconnect(pom_timer2,SIGNAL(timeout()),this,SLOT(s_start_DruhaUloha()));
 
     for (int i=0;i<3;i++) {
         scene->removeItem(rebrik_sipky[i]);
@@ -464,11 +583,27 @@ void VecMen_ulohy::s_start_DruhaUloha()
         focus_rebrik[i]->hide();
     }
 
-    answer_pixmap->hide();
+    //clean napoveda
+    auto childObject = napovedaParent->childItems();
+    QGraphicsItem* var;
+    foreach (var, childObject) {
+        scene->removeItem(var);
+        delete var;
+    }
+    delete napovedaParent;
+
     scene->removeItem(answer_pixmap);
     delete answer_pixmap;
 
     init_game2();
+}
+
+void VecMen_ulohy::s_start_TretiaUloha()
+{
+    scene->clear();
+
+    init_game3();
+    status = TRETIA_ULOHA_SELECT;
 }
 
 void VecMen_ulohy::s_clear_answer_Uloha1()
@@ -493,6 +628,36 @@ void VecMen_ulohy::s_clear_answer_Uloha2()
     status = DRUHA_ULOHA_VYBER_SIPKY;
 }
 
+void VecMen_ulohy::s_pressRebrik(my_Items *item)
+{
+    focus_rebrik[currentFocus_object]->hide();
+    if(status == PRVA_ULOHA)    {
+        status = WAIT;
+        if(item->getHodnota() == 1)  {
+            QPoint pos(static_cast<int>(item->x()+70),static_cast<int>(item->y()+100));
+            answer_pixmap = My_button::showImage(pos,":/game/score/games/utils/textur/answer_correct.png",QSize(150,250));
+            scene->addItem(answer_pixmap);
+            pom_timer->setInterval(2200);
+            pom_timer->setSingleShot(true);
+            connect(pom_timer,SIGNAL(timeout()),this,SLOT(s_start_DruhaUloha()));
+            pom_timer->start();
+
+            animationTitleText->setPlainText("A poďme na druhú úlohu.");
+            timerForState_1->start();
+            timerForState_2->start();
+            timerForState_3->start();
+        } else {
+            QPoint pos(static_cast<int>(item->x()+70),static_cast<int>(item->y()+100));
+            answer_pixmap = My_button::showImage(pos,":/game/score/games/utils/textur/answer_wrong.png",QSize(150,250));
+            scene->addItem(answer_pixmap);
+            pom_timer->setInterval(2200);
+            pom_timer->setSingleShot(true);
+            connect(pom_timer,SIGNAL(timeout()),this,SLOT(s_clear_answer_Uloha1()));
+            pom_timer->start();
+        }
+    }
+}
+
 void VecMen_ulohy::s_sipkyPressed(my_Items *item)
 {
     Q_UNUSED(item)
@@ -503,43 +668,154 @@ void VecMen_ulohy::s_sipkyPressed(my_Items *item)
 
 void VecMen_ulohy::s_takeColours(my_Items *item)
 {
-    if(status == DRUHA_ULOHA_VYBER_FARBU || status == DRUHA_ULOHA_VYBER_SIPKY){
+    if(status == DRUHA_ULOHA_VYBER_FARBU ){
         switch (item->getHodnota()) {
             case 10:
-                init_Cursor(":/game/score/games/utils/textur/cursor10.png");
+                init_Cursor(":/game/score/games/utils/textur/cursor10.png",QSize(30,30));
                 colour_ID = 10;
                 break;
             case 11:
-                init_Cursor(":/game/score/games/utils/textur/cursor11.png");
+                init_Cursor(":/game/score/games/utils/textur/cursor11.png",QSize(30,30));
                 colour_ID = 11;
                 break;
             case 12:
-                init_Cursor(":/game/score/games/utils/textur/cursor12.png");
+                init_Cursor(":/game/score/games/utils/textur/cursor12.png",QSize(30,30));
                 colour_ID = 12;
                 break;
             case 13:
-                init_Cursor(":/game/score/games/utils/textur/cursor13.png");
+                init_Cursor(":/game/score/games/utils/textur/cursor13.png",QSize(30,30));
                 colour_ID = 13;
                 break;
         }
+        //hide texts & buttons
+        auto items = colours_Text->childItems();
+        QGraphicsItem * it;
+        foreach (it, items) {
+            if(static_cast<int>(it->x()) != static_cast<int>(WIDTH_SCREAN/5))
+                it->hide();
+            else    {
+                QGraphicsTextItem* a = dynamic_cast<QGraphicsTextItem*>(it);
+                a->setPlainText("Zmeň farbu!");
+            }
+        }
+
+        for (int i = 1;i<4;i++) {
+            colours[i]->hide();
+        }
 
         status = DRUHA_ULOHA_VYBER_SIPKY;
+    } else if (status == DRUHA_ULOHA_VYBER_SIPKY){
+        auto items = colours_Text->childItems();
+        QGraphicsItem * it;
+        foreach (it, items) {   //texty
+            if(static_cast<int>(it->x()) != static_cast<int>(WIDTH_SCREAN/5))
+                it->show();
+            else    {
+                QGraphicsTextItem* a = dynamic_cast<QGraphicsTextItem*>(it);
+                a->setPlainText("Hnedá");
+            }
+        }
+                //tlacidla
+        for (int i = 1;i<4;i++) {
+            colours[i]->show();
+        }
+        colour_ID = 0;
+        scene->removeItem(kurzor);
+        kurzor = nullptr;
+        status = DRUHA_ULOHA_VYBER_FARBU;
     }
+}
+
+void VecMen_ulohy::s_selectJezko(my_Items *item)
+{
+    if(status == TRETIA_ULOHA_SELECT)   {
+        while(item != currentJezkoFocus.operator*())
+            changeFocus_Right();
+        init_Cursor(":/game/vecMen_ulohy/games/G_Mat_VecsiMensi/textur/jezko_OFF.png",item->velkost);
+        status = TRETIA_ULOHA_FIND;
+    }
+}
+
+void VecMen_ulohy::s_pressOnPoint_Jezko(my_Items *item)
+{
+    if(status == TRETIA_ULOHA_FIND) {
+        if(item->getHodnota() == currentJezkoFocus.operator*()->getHodnota()) {
+            //disconnect jezko
+            disconnect(currentJezkoFocus.operator*(),SIGNAL(pressed(my_Items*)),this,SLOT(s_selectJezko(my_Items*)));
+            currentJezkoFocus.operator*()->focusOut();
+            currentJezkoFocus.operator*()->setPos(item->pos().x(),HIGHT_SCREAN/3-currentJezkoFocus.operator*()->velkost.height());
+
+            //change focus
+            jezko.removeOne(currentJezkoFocus.operator*());
+            if(!jezko.isEmpty())    {
+                currentJezkoFocus = jezko.begin();
+                currentJezkoFocus.operator*()->focusIn();
+
+            } else {
+                pom_timer->setInterval(1200);
+                pom_timer->setSingleShot(true);
+                connect(pom_timer,SIGNAL(timeout()),this,SLOT(s_show_GameOwer()));
+                pom_timer->start();
+            }
+
+            //clear kurzor
+            scene->removeItem(kurzor);
+            delete  kurzor;
+            kurzor = nullptr;
+
+            //disconnect elipse
+            disconnect(item,SIGNAL(pressed(my_Items*)),this,SLOT(s_pressOnPoint_Jezko(my_Items*)));
+            item->hide();
+
+            status = TRETIA_ULOHA_SELECT;
+        } else {
+            pom_timer->setInterval(1500);
+            pom_timer->setSingleShot(true);
+            //dokoncit
+        }
+    }
+}
+
+void VecMen_ulohy::s_show_GameOwer()
+{
+    my_Items * it;
+    foreach (it, jezko) {
+        it->hide(); // koli z value
+    }
+
+    scene->addItem(My_button::drawPanel(0,0,WIDTH_SCREAN,HIGHT_SCREAN,Qt::black,0.65));
+
+    // draw panel
+    scene->addItem(My_button::drawPanel(WIDTH_SCREAN/2-275,HIGHT_SCREAN/2-250,550,450,Qt::lightGray,0.75));
+
+    // texty
+    scene->addItem(My_button::show_own_TitleText("Koniec hry",QPoint(WIDTH_SCREAN/2,HIGHT_SCREAN/2-220),30,true));
+
+    scene->addItem(My_button::show_own_TitleText("Si veľmi škovný",QPoint(WIDTH_SCREAN/2,HIGHT_SCREAN/2-180),30,true));
+
+    My_button* close = new My_button(QString("Koniec"));
+    close->setPos(410,HIGHT_SCREAN/2+105);
+    connect(close,SIGNAL(clicked()),this,SLOT(close()));
+
+    scene->addItem(close);
+
+    /*ADD Gif*/
+    scene->addWidget(My_button::showGif(QString(":/game/score/games/utils/textur/hviezdicky.gif"),QPoint(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-110)));
 }
 
 void VecMen_ulohy::pressKocka()
 {
-
+    s_takeColours(rebrik_sipky[3]);
 }
 
 void VecMen_ulohy::pressGulicka()
 {
-
+    s_takeColours(rebrik_sipky[1]);
 }
 
 void VecMen_ulohy::pressTrojuholnik()
 {
-
+    s_takeColours(rebrik_sipky[0]);
 }
 
 

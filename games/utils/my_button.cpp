@@ -87,7 +87,7 @@ QGraphicsRectItem *My_button::drawPanel(int x, int y, int width, int height, QCo
     return panel;
 }
 
-QGraphicsEllipseItem *My_button::drowElipse(qreal x, qreal y, qreal width, qreal height, QColor color, double opacity)
+QGraphicsEllipseItem *My_button::drow_Elipse(qreal x, qreal y, qreal width, qreal height, QColor color, double opacity)
 {
     QGraphicsEllipseItem* elipse = new QGraphicsEllipseItem(x,y,width,height);
     QBrush brush;
@@ -98,13 +98,14 @@ QGraphicsEllipseItem *My_button::drowElipse(qreal x, qreal y, qreal width, qreal
     return elipse;
 }
 
-QLabel *My_button::showGif(QMovie *movie,QString pixMap,QPoint point)
+QLabel *My_button::showGif(QString pixMap,QPoint point)
 {
-    movie =  new QMovie(pixMap);
+    //movie =  new QMovie(pixMap);
+    static QMovie moviee(pixMap);
     QLabel * aniLabel = new QLabel;
     aniLabel->setAttribute(Qt::WA_TranslucentBackground); //transparet background
-    aniLabel->setMovie(movie);
-    movie->start();
+    aniLabel->setMovie(&moviee);
+    moviee.start();
     aniLabel->setGeometry(point.x(),point.y(),150,150);
 
     aniLabel->show();

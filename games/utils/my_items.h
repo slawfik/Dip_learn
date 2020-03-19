@@ -17,11 +17,11 @@ private:
     QTimer *focusTimer = nullptr;
     QString path_OFF;
     QString path_ON;
-    QSize velkost;
     const QPointF poz;
     int hodnota;
 
 public:
+    QSize velkost;
     static bool generateRandomNumberWithoutRepetition(int *arrayGenerated,int pocet,int pa_od,int pa_do);
 
     my_Items();

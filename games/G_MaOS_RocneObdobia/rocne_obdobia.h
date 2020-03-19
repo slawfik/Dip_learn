@@ -58,7 +58,6 @@ private:
     QState *state24;
     QFinalState *stateFinal_1;
     QStateMachine *stateMachine;
-    QMovie* movie = nullptr;
 
     void initStates();
 

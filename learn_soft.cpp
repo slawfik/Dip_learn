@@ -13,6 +13,7 @@
 #include "games/G_PaP_NajdiObrazok/najdi_obrazok.h"
 #include "games/G_MaOS_RocneObdobia/rocne_obdobia.h"
 #include "games/G_Mat_VecsiMensi/vecmen_ulohy.h"
+#include "games/G_Zab_Lietadielka/lietadielka.h"
 
 //global variable marked extern
 PriradTiene *tien = nullptr;
@@ -21,7 +22,7 @@ Mario_coin *marioCoin = nullptr;
 Najdi_obrazok *najdiObr = nullptr;
 Rocne_obdobia *rocObdob = nullptr;
 VecMen_ulohy *vec_menUlohy = nullptr;
-
+Lietadielka *lietadielka = nullptr;
 //global variable
 GamesMethod *current_runGame = nullptr;
 
@@ -31,6 +32,7 @@ Learn_soft::Learn_soft(QWidget *parent)
 {
     ui->setupUi(this);
     set_mainPage_Style();
+    srand(time(NULL));
     /*newSerialThread.set_run("/dev/ttyUSB1",QSerialPort::Baud9600);
 
     connect(&newSerialThread, &serialThread::request, this,&Learn_soft::showRequest);
@@ -58,6 +60,10 @@ Learn_soft::~Learn_soft()
     if (vec_menUlohy){
         vec_menUlohy->close();
         delete vec_menUlohy;
+    }
+    if (lietadielka){
+        lietadielka->close();
+        delete lietadielka;
     }
     qDebug() << "delete ui";
     delete ui;
@@ -125,7 +131,11 @@ void Learn_soft::on_btn_2_clicked()
             //mat game2
             break;
         case ZAB_4:
-            //zab game2
+            if(lietadielka)
+                delete lietadielka;
+            lietadielka = new Lietadielka();
+            lietadielka->show();
+            current_runGame = lietadielka;
             break;
     }
 }
@@ -163,7 +173,7 @@ void Learn_soft::on_btn_4_clicked()
         case HOME:
             ui->label_temat->setText("Vyber z nasledujúcich hier:");
             ui->btn_1->setStyleSheet(stylesheet_site4_1_COIN);
-            ui->btn_2->hide();
+            ui->btn_2->setStyleSheet(stylesheet_site4_2_Lietadla);
             ui->btn_3->hide();
             ui->btn_4->setStyleSheet(stylesheet_btn_4_ZPET);
             ui->btn_settings->hide();

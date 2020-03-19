@@ -70,12 +70,7 @@ Rocne_obdobia::~Rocne_obdobia()
         delete timer;
     if(timer_answer)
         delete timer_answer;
-    if(movie){
-       #ifdef DEF_DEBUG
-        qDebug() << "~Rocne_obdobia.cpp 78 delete movie";
-       #endif
-        delete movie;
-    }
+
     if(hracieKarty.size())
         hracieKarty.clear();
     if(up_item.size())
@@ -586,7 +581,7 @@ void Rocne_obdobia::s_showGameOver()
     scene->addItem(close);
 
     /*ADD Gif*/
-    scene->addWidget(My_button::showGif(movie,QString(":/game/score/games/utils/textur/hviezdicky.gif"),QPoint(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-110)));
+    scene->addWidget(My_button::showGif(QString(":/game/score/games/utils/textur/hviezdicky.gif"),QPoint(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-110)));
 
 }
 

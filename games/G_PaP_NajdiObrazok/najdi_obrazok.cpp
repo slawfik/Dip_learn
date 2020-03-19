@@ -30,10 +30,10 @@ Najdi_obrazok::~Najdi_obrazok()
     delete scene;
     if(timer)
         delete timer;
-    if(movie){
+/*    if(movie){
         qDebug() << "~najdi_obrazok.cpp 37 delete movie";
         delete movie;
-    }
+    }*/
     if(l_myItems.size())
         l_myItems.clear();
 }
@@ -322,16 +322,16 @@ void Najdi_obrazok::showGameOver(bool win,QString data)
 
     /*ADD Gif*/
     if(win) {
-        scene->addWidget(My_button::showGif(movie,QString(":/game/score/games/utils/textur/hviezdicky.gif"),QPoint(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-110)));
+        scene->addWidget(My_button::showGif(QString(":/game/score/games/utils/textur/hviezdicky.gif"),QPoint(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-110)));
     } else {
-        scene->addWidget(My_button::showGif(movie,QString(":/game/score/games/utils/textur/smajlik.gif"),QPoint(WIDTH_SCREAN/2+50,HIGHT_SCREAN/2-110)));
+        scene->addWidget(My_button::showGif(QString(":/game/score/games/utils/textur/smajlik.gif"),QPoint(WIDTH_SCREAN/2+50,HIGHT_SCREAN/2-110)));
     }
 }
 
 void Najdi_obrazok::restartGame()
 {
-    if(movie != nullptr)
-        delete movie;
+    /*if(movie != nullptr)
+        delete movie;*/
     if(timer)
         delete timer;
 

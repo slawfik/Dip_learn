@@ -27,6 +27,8 @@
         <file>images/MaOS_rocneObdob_ON.png</file>
         <file>images/Mat_velkosti_OFF.png</file>
         <file>images/Mat_velkosti_ON.png</file>
+        <file>images/Zab_lietadla_ON.png</file>
+        <file>images/Zab_lietadla_OFF.png</file>
     </qresource>
     <qresource prefix="/game/tiene">
         <file>games/G_MaOS_tiene/textur/zajacik.png</file>
@@ -137,5 +139,15 @@
         <file>games/G_Mat_VecsiMensi/textur/s2.png</file>
         <file>games/G_Mat_VecsiMensi/textur/s3.png</file>
         <file>games/G_Mat_VecsiMensi/textur/s4.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/jezko_OFF.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/jezko_ON.png</file>
+        <file>games/G_Mat_VecsiMensi/textur/elipse.png</file>
+    </qresource>
+    <qresource prefix="/game/lietadla">
+        <file>games/G_Zab_Lietadielka/textur/strela_red.png</file>
+        <file>games/G_Zab_Lietadielka/textur/strela_blue.png</file>
+        <file>games/G_Zab_Lietadielka/textur/player.png</file>
+        <file>games/G_Zab_Lietadielka/textur/enemy.png</file>
+        <file>games/G_Zab_Lietadielka/textur/bos.png</file>
     </qresource>
 </RCC>

@@ -22,8 +22,8 @@ public:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
     static QGraphicsRectItem* drawPanel(int x, int y, int width, int height, QColor color, double opacity);
-    static QGraphicsEllipseItem* drowElipse(qreal x, qreal y, qreal width, qreal height,QColor color, double opacity);
-    static QLabel * showGif(QMovie *movie,QString pixMap,QPoint point);
+    static QGraphicsEllipseItem* drow_Elipse(qreal x, qreal y, qreal width, qreal height,QColor color, double opacity);
+    static QLabel * showGif(QString pixMap,QPoint point);
     static QGraphicsTextItem* showTitleText(QString data);
     static QGraphicsTextItem* show_own_TitleText(QString data,QPoint point,int size_font,bool center_onThisPoint,qreal text_Len=700);
     static QGraphicsPixmapItem* showImage(QPoint point,QString img_path,QSize velkost);

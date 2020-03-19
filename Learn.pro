@@ -25,6 +25,11 @@ SOURCES += \
     games/G_MaOS_tiene/prirad_tiene.cpp \
     games/G_MaOS_tiene/tiene.cpp \
     games/G_PaP_NajdiObrazok/najdi_obrazok.cpp \
+    games/G_Zab_Lietadielka/boss.cpp \
+    games/G_Zab_Lietadielka/enemy.cpp \
+    games/G_Zab_Lietadielka/lietadielka.cpp \
+    games/G_Zab_Lietadielka/player.cpp \
+    games/G_Zab_Lietadielka/strela.cpp \
     games/G_Zab_Mario_coin/coin.cpp \
     games/G_Zab_Mario_coin/hrac.cpp \
     games/G_Zab_Mario_coin/mario_coin.cpp \
@@ -48,6 +53,11 @@ HEADERS += \
     games/G_MaOS_tiene/prirad_tiene.h \
     games/G_MaOS_tiene/tiene.h \
     games/G_PaP_NajdiObrazok/najdi_obrazok.h \
+    games/G_Zab_Lietadielka/boss.h \
+    games/G_Zab_Lietadielka/enemy.h \
+    games/G_Zab_Lietadielka/lietadielka.h \
+    games/G_Zab_Lietadielka/player.h \
+    games/G_Zab_Lietadielka/strela.h \
     games/G_Zab_Mario_coin/coin.h \
     games/G_Zab_Mario_coin/hrac.h \
     games/G_Zab_Mario_coin/mario_coin.h \

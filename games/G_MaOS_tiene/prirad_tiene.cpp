@@ -31,10 +31,7 @@ PriradTiene::~PriradTiene()
 {
     scene->clear();
     l_animal.clear();
-    if(movie){
-        qDebug() << "~prirad_Tiene.cpp 37 delete movie";
-        delete movie;
-    }
+
     delete scene;
 }
 
@@ -87,10 +84,10 @@ void PriradTiene::pressEnter_ResetGame_Tiene(Tiene *t)
 
 void PriradTiene::restartGame()
 {
-    if(movie){
+    /*if(movie){
         delete movie;
         movie = nullptr;
-    }
+    }*/
     //Removes and deletes all items from the scene
     scene->clear();
     l_animal.clear(); //koli nedokoncenej hre
@@ -201,7 +198,7 @@ void PriradTiene::showGameOver()
     scene->addItem(game_OverButtons_parent);
 
     /*ADD Gif*/
-    scene->addWidget(My_button::showGif(movie,QString(":/game/score/games/utils/textur/hviezdicky.gif"),
+    scene->addWidget(My_button::showGif(QString(":/game/score/games/utils/textur/hviezdicky.gif"),
                                         QPoint(WIDTH_SCREAN/2-75,HIGHT_SCREAN/2-110)));
 }
 

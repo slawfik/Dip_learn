@@ -11,7 +11,6 @@ class PriradTiene : public QGraphicsView , public GamesMethod
 {
     Q_OBJECT
 public:
-    QMovie *movie = nullptr;
     QGraphicsPixmapItem * kurzor;
     QGraphicsScene *scene;
     Tiene *reset_BTN;
