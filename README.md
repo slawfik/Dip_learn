@@ -1,5 +1,5 @@
 # Učíme sa s Maťkom
-Aplikácia bola narhnutá pre deti v predprimárnom vzdelávaní, ktorých hravou formou (pomocou hier) učí rôzne zručnosti z oblasti Matematiky, Myslenie a okolitý svet, Pozornosť a pamäť, Voľná zábava.
+Aplikácia bola narhnutá pre deti v predprimárnom vzdelávaní, ktorých hravou formou (pomocou hier) učí rôzne zručnosti z oblasti Matematiky, Myslenie a okolitý svet, Pozornosť a pamäť, Voľná zábava. Všetky hry sa dajú ovládať pomocou špeciálneho ovládača vytvoreného v inej diplomovej práci. Tento ovládač sa pripája pomocou USB zbernice v nastaveniach.
 
 ![Co je mensie?](https://github.com/slawfik/Dip_learn/blob/master/hry_screan/apk_mainWindow.png)
 
